@@ -1,0 +1,22 @@
+const detector = await poseDetection.createDetector(
+poseDetection.SupportedModels.MoveNet
+)
+
+async function detectPose(){
+  const poses = await detector.estimatePoses(video)
+
+  if(poses.length > 0){
+     const keypoints = poses[0].keypoints
+
+     // Example: calculate knee angle
+     const angle = calculateAngle(
+        keypoints[hip],
+        keypoints[knee],
+        keypoints[ankle]
+     )
+
+     document.getElementById("angle").innerText = angle
+  }
+
+  requestAnimationFrame(detectPose)
+}
