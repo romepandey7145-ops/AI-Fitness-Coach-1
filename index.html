@@ -273,7 +273,8 @@ h3 { font-family: 'Syne', sans-serif; font-weight: 600; }
 ═══════════════════════════ */
 #s-welcome {
   background: var(--bg);
-  justify-content: flex-end;
+  justify-content: space-between;
+  overflow: hidden;
 }
 
 .welcome-bg {
@@ -286,24 +287,26 @@ h3 { font-family: 'Syne', sans-serif; font-weight: 600; }
   border-radius: 50%;
 }
 .wbc1 {
-  width: 500px; height: 500px;
-  top: -200px; left: -100px;
-  background: radial-gradient(circle, rgba(200,241,53,0.08) 0%, transparent 70%);
+  width: 380px; height: 380px;
+  top: -60px; left: 50%; transform: translateX(-50%);
+  background: radial-gradient(circle, rgba(200,241,53,0.13) 0%, transparent 70%);
 }
 .wbc2 {
-  width: 400px; height: 400px;
-  top: 100px; right: -150px;
-  background: radial-gradient(circle, rgba(78,158,255,0.06) 0%, transparent 70%);
+  width: 300px; height: 300px;
+  top: 80px; right: -120px;
+  background: radial-gradient(circle, rgba(78,158,255,0.07) 0%, transparent 70%);
 }
 
+/* Hero — centered at top */
 .welcome-hero {
-  position: absolute;
-  top: 60px;
-  left: 0; right: 0;
+  position: relative;
+  z-index: 10;
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 6px;
+  padding-top: 12px;
+  flex: 1;
 }
 
 .welcome-logo {
@@ -314,21 +317,21 @@ h3 { font-family: 'Syne', sans-serif; font-weight: 600; }
   align-items: center;
   justify-content: center;
   font-size: 32px;
-  box-shadow: 0 0 40px rgba(200,241,53,0.35);
-  margin-bottom: 4px;
+  box-shadow: 0 0 40px rgba(200,241,53,0.4);
+  margin-bottom: 6px;
 }
 
 .welcome-stats {
   display: flex;
-  gap: 20px;
-  margin-top: 20px;
+  gap: 28px;
+  margin-top: 14px;
 }
 .welcome-stat {
   text-align: center;
 }
 .welcome-stat-val {
   font-family: 'Syne', sans-serif;
-  font-size: 20px;
+  font-size: 19px;
   font-weight: 800;
   color: var(--lime);
 }
@@ -338,31 +341,40 @@ h3 { font-family: 'Syne', sans-serif; font-weight: 600; }
   margin-top: 2px;
 }
 
-/* Floating cards */
+/* Floating cards — positioned relative to phone, not absolute */
+.float-cards-row {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  height: 120px;
+  flex-shrink: 0;
+}
 .float-card {
   position: absolute;
-  background: rgba(22,30,46,0.9);
+  background: rgba(22,30,46,0.92);
   border: 1px solid var(--border2);
   border-radius: 14px;
   padding: 10px 14px;
-  backdrop-filter: blur(10px);
+  backdrop-filter: blur(12px);
   animation: float 3s ease-in-out infinite;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.3);
 }
-.float-card-1 { top: 270px; left: 20px; animation-delay: 0s; }
-.float-card-2 { top: 340px; right: 20px; animation-delay: 1s; }
-.float-card-3 { top: 420px; left: 30px; animation-delay: 0.5s; }
+.float-card-1 { top: 10px;  left: 16px;  animation-delay: 0s; }
+.float-card-2 { top: 0px;   right: 16px; animation-delay: 1s; }
+.float-card-3 { top: 62px;  left: 40px;  animation-delay: 0.5s; }
 
 @keyframes float {
   0%,100% { transform: translateY(0px); }
-  50% { transform: translateY(-6px); }
+  50%      { transform: translateY(-6px); }
 }
 
 .welcome-bottom {
   position: relative;
   z-index: 10;
-  padding: 32px 24px 40px;
-  background: linear-gradient(to top, var(--bg) 70%, transparent);
+  padding: 24px 24px 36px;
+  background: linear-gradient(to top, var(--bg) 75%, transparent);
   width: 100%;
+  flex-shrink: 0;
 }
 
 /* ═══════════════════════════
@@ -446,6 +458,44 @@ input[type=range]::-webkit-slider-thumb {
   width: 220px;
   height: 120px;
   margin: 0 auto;
+}
+
+
+/* ─── Diet customize options ─── */
+.diet-opt {
+  background: var(--surface);
+  border: 1.5px solid var(--border2);
+  border-radius: 10px;
+  padding: 8px 14px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all .2s;
+  line-height: 1.4;
+}
+.diet-opt.selected {
+  background: var(--lime-dim);
+  border-color: rgba(200,241,53,.5);
+  color: var(--lime);
+}
+.diet-toggle {
+  width: 44px; height: 24px;
+  border-radius: 100px;
+  position: relative;
+  cursor: pointer;
+  transition: background .3s;
+  flex-shrink: 0;
+  border: 1px solid rgba(255,255,255,.08);
+}
+.diet-toggle-knob {
+  position: absolute;
+  top: 3px; left: 3px;
+  width: 16px; height: 16px;
+  background: white;
+  border-radius: 50%;
+  transition: transform .25s;
+  box-shadow: 0 1px 4px rgba(0,0,0,.4);
 }
 
 /* ═══════════════════════════
@@ -1003,7 +1053,7 @@ input[type=range]::-webkit-slider-thumb {
   </div>
 
   <!-- Status Bar -->
-  <div class="status-bar" style="position:relative;z-index:10">
+  <div class="status-bar" style="position:relative;z-index:10;flex-shrink:0">
     <span>9:41</span>
     <span style="display:flex;gap:6px;align-items:center">
       <svg width="16" height="12" viewBox="0 0 16 12" fill="white" opacity="0.8"><rect x="0" y="3" width="3" height="9" rx="1"/><rect x="4.5" y="2" width="3" height="10" rx="1"/><rect x="9" y="0" width="3" height="12" rx="1"/><rect x="13.5" y="1" width="2.5" height="11" rx="1"/></svg>
@@ -1012,12 +1062,11 @@ input[type=range]::-webkit-slider-thumb {
     </span>
   </div>
 
-  <!-- Hero area -->
-  <div class="welcome-hero" style="position:relative;z-index:10">
+  <!-- Hero — logo + title + stats -->
+  <div class="welcome-hero">
     <div class="welcome-logo">🏋️</div>
-    <h1 style="font-size:28px;text-align:center;line-height:1.2">Your AI<br>Fitness Coach</h1>
-    <p style="text-align:center;color:var(--text2);font-size:14px;max-width:240px;line-height:1.5;margin-top:6px">Transform your body with intelligent workouts and smart nutrition guidance.</p>
-
+    <h1 style="font-size:28px;text-align:center;line-height:1.2;font-family:'Syne',sans-serif;font-weight:800">Your AI<br>Fitness Coach</h1>
+    <p style="text-align:center;color:var(--text2);font-size:13px;max-width:230px;line-height:1.55;margin-top:4px">Transform your body with intelligent workouts and smart nutrition guidance.</p>
     <div class="welcome-stats">
       <div class="welcome-stat">
         <div class="welcome-stat-val">100K+</div>
@@ -1034,31 +1083,33 @@ input[type=range]::-webkit-slider-thumb {
     </div>
   </div>
 
-  <!-- Floating cards -->
-  <div class="float-card float-card-1" style="position:absolute;z-index:10">
-    <div style="display:flex;align-items:center;gap:8px">
-      <span style="font-size:18px">🔥</span>
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--orange)">340 kcal</div>
-        <div style="font-size:10px;color:var(--text3)">Burned today</div>
+  <!-- Floating cards row -->
+  <div class="float-cards-row">
+    <div class="float-card float-card-1">
+      <div style="display:flex;align-items:center;gap:9px">
+        <span style="font-size:20px">🔥</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--orange)">340 kcal</div>
+          <div style="font-size:10px;color:var(--text3)">Burned today</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="float-card float-card-2" style="position:absolute;z-index:10">
-    <div style="display:flex;align-items:center;gap:8px">
-      <span style="font-size:18px">💪</span>
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--lime)">Push-ups 28</div>
-        <div style="font-size:10px;color:var(--text3)">Form: Perfect ✓</div>
+    <div class="float-card float-card-2">
+      <div style="display:flex;align-items:center;gap:9px">
+        <span style="font-size:20px">💪</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--lime)">Push-ups 28</div>
+          <div style="font-size:10px;color:var(--text3)">Form: Perfect ✓</div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="float-card float-card-3" style="position:absolute;z-index:10">
-    <div style="display:flex;align-items:center;gap:8px">
-      <span style="font-size:18px">🥗</span>
-      <div>
-        <div style="font-size:12px;font-weight:600;color:var(--teal)">Meal scanned</div>
-        <div style="font-size:10px;color:var(--text3)">480 kcal • 32g protein</div>
+    <div class="float-card float-card-3">
+      <div style="display:flex;align-items:center;gap:9px">
+        <span style="font-size:20px">🥗</span>
+        <div>
+          <div style="font-size:12px;font-weight:700;color:var(--teal)">Meal scanned</div>
+          <div style="font-size:10px;color:var(--text3)">480 kcal • 32g protein</div>
+        </div>
       </div>
     </div>
   </div>
@@ -1342,33 +1393,464 @@ input[type=range]::-webkit-slider-thumb {
         <p style="color:var(--text2);font-size:14px;margin-bottom:24px;line-height:1.5">Personalized just for you based on your goals, body metrics, and preferences.</p>
 
         <div style="display:flex;flex-direction:column;gap:10px;text-align:left">
-          <div class="card-sm" style="display:flex;align-items:center;gap:14px">
-            <div style="width:44px;height:44px;background:var(--lime-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(200,241,53,0.15)">💪</div>
-            <div>
+          <div class="card-sm" style="display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;border-color:rgba(200,241,53,0.2)" onclick="showScreen('s-myworkout')">
+            <div style="width:44px;height:44px;background:var(--lime-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(200,241,53,0.15);flex-shrink:0">💪</div>
+            <div style="flex:1">
               <div style="font-weight:600;font-size:14px">4-Day Workout Plan</div>
               <div style="font-size:12px;color:var(--text3)">Gym · Intermediate · 45 min/session</div>
             </div>
-            <div style="margin-left:auto;color:var(--lime)">✓</div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="color:var(--lime);font-size:12px">View</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#C8F135" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
           </div>
-          <div class="card-sm" style="display:flex;align-items:center;gap:14px">
-            <div style="width:44px;height:44px;background:var(--teal-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(45,220,180,0.15)">🥗</div>
-            <div>
+          <div class="card-sm" style="display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;border-color:rgba(45,220,180,0.2)" onclick="showScreen('s-mydiet')">
+            <div style="width:44px;height:44px;background:var(--teal-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(45,220,180,0.15);flex-shrink:0">🥗</div>
+            <div style="flex:1">
               <div style="font-weight:600;font-size:14px">Custom Diet Plan</div>
               <div style="font-size:12px;color:var(--text3)">2,200 kcal · High Protein</div>
             </div>
-            <div style="margin-left:auto;color:var(--lime)">✓</div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="color:var(--teal);font-size:12px">View</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#2DDCB4" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
           </div>
-          <div class="card-sm" style="display:flex;align-items:center;gap:14px">
-            <div style="width:44px;height:44px;background:var(--blue-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(78,158,255,0.15)">📊</div>
-            <div>
+          <div class="card-sm" style="display:flex;align-items:center;gap:14px;cursor:pointer;transition:all .2s;border-color:rgba(78,158,255,0.2)" onclick="showScreen('s-myprogress')">
+            <div style="width:44px;height:44px;background:var(--blue-dim);border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:22px;border:1px solid rgba(78,158,255,0.15);flex-shrink:0">📊</div>
+            <div style="flex:1">
               <div style="font-weight:600;font-size:14px">Progress Tracking</div>
               <div style="font-size:12px;color:var(--text3)">Weekly check-ins & analytics</div>
             </div>
-            <div style="margin-left:auto;color:var(--lime)">✓</div>
+            <div style="display:flex;align-items:center;gap:6px">
+              <span style="color:var(--blue);font-size:12px">View</span>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#4E9EFF" stroke-width="2.5"><path d="M9 18l6-6-6-6"/></svg>
+            </div>
           </div>
         </div>
 
         <button class="btn-primary" style="margin-top:28px" onclick="goToDashboard()">Start My Journey 🚀</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     MY WORKOUT PLAN SCREEN
+══════════════════════════════════ -->
+<div class="screen" id="s-myworkout">
+  <div class="status-bar"><span>9:41</span><span>🔋</span></div>
+  <div style="padding:10px 20px 4px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <div class="page-back" onclick="showScreen('s-onboard')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></div>
+    <div><h2 style="font-size:19px;font-family:'Syne',sans-serif;font-weight:800">My Workout Plan</h2><p style="font-size:11px;color:var(--text3)">4-Day Split · Gym · Intermediate</p></div>
+  </div>
+  <div class="scroll-body" style="padding-bottom:24px">
+
+    <!-- Week banner -->
+    <div style="margin:12px 20px;background:linear-gradient(135deg,rgba(200,241,53,.1),rgba(200,241,53,.04));border:1px solid rgba(200,241,53,.2);border-radius:16px;padding:14px 16px;display:flex;justify-content:space-between;align-items:center">
+      <div><div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">This Week</div><div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;margin-top:2px">Week 1 of 12</div></div>
+      <div style="text-align:right"><div style="font-size:10px;color:var(--text3)">Completion</div><div style="font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--lime)">25%</div></div>
+    </div>
+
+    <!-- Day cards -->
+    <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+
+      <!-- Day 1 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;background:var(--lime-dim);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px">💪</div>
+            <div><div style="font-weight:700;font-size:14px">Day 1 — Chest & Triceps</div><div style="font-size:11px;color:var(--text3)">Monday · 45 min · 5 exercises</div></div>
+          </div>
+          <span style="background:rgba(0,210,110,.12);color:#00d278;font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;border:1px solid rgba(0,210,110,.2)">Done ✓</span>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Bench Press</span><span style="font-size:12px;color:var(--text3)">4 × 10  ·  70kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Incline Dumbbell Press</span><span style="font-size:12px;color:var(--text3)">3 × 12  ·  24kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Cable Fly</span><span style="font-size:12px;color:var(--text3)">3 × 15  ·  15kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Tricep Pushdown</span><span style="font-size:12px;color:var(--text3)">4 × 12  ·  25kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Skull Crushers</span><span style="font-size:12px;color:var(--text3)">3 × 10  ·  20kg</span></div>
+        </div>
+      </div>
+
+      <!-- Day 2 -->
+      <div style="background:var(--surface);border:1px solid rgba(78,158,255,.25);border-radius:16px;overflow:hidden">
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;background:var(--blue-dim);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px">🦵</div>
+            <div><div style="font-weight:700;font-size:14px">Day 2 — Legs & Glutes</div><div style="font-size:11px;color:var(--text3)">Wednesday · 50 min · 6 exercises</div></div>
+          </div>
+          <span style="background:rgba(78,158,255,.12);color:var(--blue);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px;border:1px solid rgba(78,158,255,.2)">Today</span>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Barbell Squat</span><span style="font-size:12px;color:var(--text3)">5 × 8  ·  80kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Romanian Deadlift</span><span style="font-size:12px;color:var(--text3)">4 × 10  ·  70kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Leg Press</span><span style="font-size:12px;color:var(--text3)">4 × 12  ·  120kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Leg Curl</span><span style="font-size:12px;color:var(--text3)">3 × 15  ·  40kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Calf Raise</span><span style="font-size:12px;color:var(--text3)">4 × 20  ·  60kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Hip Thrust</span><span style="font-size:12px;color:var(--text3)">4 × 12  ·  80kg</span></div>
+        </div>
+      </div>
+
+      <!-- Day 3 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;background:var(--orange-dim);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px">🏋️</div>
+            <div><div style="font-weight:700;font-size:14px">Day 3 — Back & Biceps</div><div style="font-size:11px;color:var(--text3)">Friday · 45 min · 5 exercises</div></div>
+          </div>
+          <span style="background:var(--surface2);color:var(--text3);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px">Upcoming</span>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Deadlift</span><span style="font-size:12px;color:var(--text3)">4 × 6  ·  100kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Pull-Ups</span><span style="font-size:12px;color:var(--text3)">4 × 8  ·  BW</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Barbell Row</span><span style="font-size:12px;color:var(--text3)">4 × 10  ·  60kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Barbell Curl</span><span style="font-size:12px;color:var(--text3)">3 × 12  ·  30kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Hammer Curl</span><span style="font-size:12px;color:var(--text3)">3 × 15  ·  14kg</span></div>
+        </div>
+      </div>
+
+      <!-- Day 4 -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:14px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid var(--border)">
+          <div style="display:flex;align-items:center;gap:10px">
+            <div style="width:36px;height:36px;background:var(--pink-dim);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px">🤸</div>
+            <div><div style="font-weight:700;font-size:14px">Day 4 — Shoulders & Core</div><div style="font-size:11px;color:var(--text3)">Saturday · 40 min · 5 exercises</div></div>
+          </div>
+          <span style="background:var(--surface2);color:var(--text3);font-size:10px;font-weight:700;padding:3px 9px;border-radius:100px">Upcoming</span>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Overhead Press</span><span style="font-size:12px;color:var(--text3)">4 × 10  ·  50kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Lateral Raise</span><span style="font-size:12px;color:var(--text3)">4 × 15  ·  10kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Face Pull</span><span style="font-size:12px;color:var(--text3)">3 × 15  ·  20kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Cable Crunch</span><span style="font-size:12px;color:var(--text3)">4 × 20  ·  30kg</span></div>
+          <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-size:13px">Plank</span><span style="font-size:12px;color:var(--text3)">3 × 60s  ·  BW</span></div>
+        </div>
+      </div>
+
+      <!-- Rest days note -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:14px 16px;display:flex;align-items:center;gap:12px">
+        <div style="width:36px;height:36px;background:rgba(45,220,180,.1);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0">😴</div>
+        <div><div style="font-weight:600;font-size:13px">Rest Days: Tue, Thu, Sun</div><div style="font-size:11px;color:var(--text3);margin-top:2px">Active recovery — light walk or stretching recommended</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     MY DIET PLAN SCREEN
+══════════════════════════════════ -->
+<div class="screen" id="s-mydiet">
+  <div class="status-bar"><span>9:41</span><span>🔋</span></div>
+  <div style="padding:10px 20px 4px;display:flex;align-items:center;justify-content:space-between;flex-shrink:0">
+    <div style="display:flex;align-items:center;gap:12px">
+      <div class="page-back" onclick="showScreen('s-onboard')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></div>
+      <div><h2 style="font-size:19px;font-family:'Syne',sans-serif;font-weight:800">My Diet Plan</h2><p style="font-size:11px;color:var(--text3)">2,200 kcal · High Protein · Indian</p></div>
+    </div>
+    <button onclick="showScreen('s-dietcustomize')" style="background:var(--lime-dim);color:var(--lime);border:1px solid rgba(200,241,53,.3);border-radius:10px;padding:7px 12px;font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap">⚙ Customize</button>
+  </div>
+  <div class="scroll-body" style="padding-bottom:24px">
+
+    <!-- Macro summary -->
+    <div style="margin:10px 20px;display:grid;grid-template-columns:repeat(4,1fr);gap:8px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center">
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--lime)">2200</div>
+        <div style="font-size:9px;color:var(--text3);margin-top:2px">Kcal</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center">
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--blue)">165g</div>
+        <div style="font-size:9px;color:var(--text3);margin-top:2px">Protein</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center">
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--orange)">220g</div>
+        <div style="font-size:9px;color:var(--text3);margin-top:2px">Carbs</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:10px 6px;text-align:center">
+        <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:800;color:var(--pink)">73g</div>
+        <div style="font-size:9px;color:var(--text3);margin-top:2px">Fat</div>
+      </div>
+    </div>
+
+    <!-- Preferences chip row -->
+    <div class="diet-chips-row" style="padding:0 20px 10px;display:flex;gap:7px;flex-wrap:wrap">
+      <span style="background:rgba(200,241,53,.1);color:var(--lime);border:1px solid rgba(200,241,53,.2);border-radius:100px;padding:4px 11px;font-size:10px;font-weight:600">🇮🇳 Indian</span>
+      <span style="background:rgba(78,158,255,.1);color:var(--blue);border:1px solid rgba(78,158,255,.2);border-radius:100px;padding:4px 11px;font-size:10px;font-weight:600">💰 Budget-Friendly</span>
+      <span style="background:rgba(255,79,139,.1);color:var(--pink);border:1px solid rgba(255,79,139,.2);border-radius:100px;padding:4px 11px;font-size:10px;font-weight:600">🚫 No Supplements</span>
+    </div>
+
+    <!-- Meals -->
+    <div style="padding:0 20px;display:flex;flex-direction:column;gap:10px">
+
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);padding-top:4px">Meal Plan</div>
+
+      <!-- Breakfast -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:9px">
+            <span style="font-size:20px">🌅</span>
+            <div><div style="font-weight:700;font-size:13px">Breakfast</div><div style="font-size:11px;color:var(--text3)">7:00 – 8:00 AM · ~450 kcal</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--blue);font-weight:600">45g protein</div>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Paneer Bhurji (100g)</span><span style="font-size:12px;color:var(--text3)">180 kcal · 18g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Whole Wheat Roti (2)</span><span style="font-size:12px;color:var(--text3)">140 kcal · 5g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Boiled Eggs (2)</span><span style="font-size:12px;color:var(--text3)">130 kcal · 12g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Chai (no sugar)</span><span style="font-size:12px;color:var(--text3)">30 kcal · 2g P</span></div>
+        </div>
+      </div>
+
+      <!-- Mid-morning -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:9px">
+            <span style="font-size:20px">🍌</span>
+            <div><div style="font-weight:700;font-size:13px">Mid-Morning Snack</div><div style="font-size:11px;color:var(--text3)">10:30 AM · ~200 kcal</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--blue);font-weight:600">20g protein</div>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Chana Chaat (1 cup)</span><span style="font-size:12px;color:var(--text3)">120 kcal · 8g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Curd / Dahi (150g)</span><span style="font-size:12px;color:var(--text3)">80 kcal · 6g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Banana (1 medium)</span><span style="font-size:12px;color:var(--text3)">90 kcal · 1g P</span></div>
+        </div>
+      </div>
+
+      <!-- Lunch -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:9px">
+            <span style="font-size:20px">🍛</span>
+            <div><div style="font-weight:700;font-size:13px">Lunch</div><div style="font-size:11px;color:var(--text3)">1:00 – 2:00 PM · ~600 kcal</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--blue);font-weight:600">50g protein</div>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Dal Tadka (1 cup)</span><span style="font-size:12px;color:var(--text3)">180 kcal · 12g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Chicken Curry (150g)</span><span style="font-size:12px;color:var(--text3)">220 kcal · 28g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Brown Rice (1 cup)</span><span style="font-size:12px;color:var(--text3)">180 kcal · 5g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Salad (cucumber, onion)</span><span style="font-size:12px;color:var(--text3)">20 kcal · 1g P</span></div>
+        </div>
+      </div>
+
+      <!-- Pre-workout -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:9px">
+            <span style="font-size:20px">⚡</span>
+            <div><div style="font-weight:700;font-size:13px">Pre-Workout</div><div style="font-size:11px;color:var(--text3)">5:30 PM · ~150 kcal</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--blue);font-weight:600">10g protein</div>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Banana (1) + Peanut Butter</span><span style="font-size:12px;color:var(--text3)">150 kcal · 5g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Boiled Egg (1)</span><span style="font-size:12px;color:var(--text3)">65 kcal · 6g P</span></div>
+        </div>
+      </div>
+
+      <!-- Dinner -->
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden">
+        <div style="padding:12px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between">
+          <div style="display:flex;align-items:center;gap:9px">
+            <span style="font-size:20px">🌙</span>
+            <div><div style="font-weight:700;font-size:13px">Dinner</div><div style="font-size:11px;color:var(--text3)">8:00 – 9:00 PM · ~550 kcal</div></div>
+          </div>
+          <div style="font-size:12px;color:var(--blue);font-weight:600">45g protein</div>
+        </div>
+        <div style="padding:12px 16px;display:flex;flex-direction:column;gap:7px">
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Egg Bhurji / Omelette (3 eggs)</span><span style="font-size:12px;color:var(--text3)">200 kcal · 18g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Moong Dal (1 cup)</span><span style="font-size:12px;color:var(--text3)">150 kcal · 12g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Phulka Roti (2)</span><span style="font-size:12px;color:var(--text3)">140 kcal · 5g P</span></div>
+          <div style="display:flex;justify-content:space-between"><span style="font-size:13px">Mixed Sabzi</span><span style="font-size:12px;color:var(--text3)">60 kcal · 3g P</span></div>
+        </div>
+      </div>
+
+      <!-- Daily cost -->
+      <div style="background:linear-gradient(135deg,rgba(200,241,53,.08),rgba(200,241,53,.03));border:1px solid rgba(200,241,53,.15);border-radius:14px;padding:14px 16px;display:flex;align-items:center;justify-content:space-between">
+        <div>
+          <div style="font-size:11px;color:var(--text3)">Estimated Daily Cost</div>
+          <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:var(--lime);margin-top:2px">₹180 – ₹220</div>
+        </div>
+        <div style="text-align:right">
+          <div style="font-size:11px;color:var(--text3)">Monthly</div>
+          <div style="font-family:'Syne',sans-serif;font-size:16px;font-weight:700;margin-top:2px">₹5,400 – ₹6,600</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     DIET CUSTOMIZATION SCREEN
+══════════════════════════════════ -->
+<div class="screen" id="s-dietcustomize">
+  <div class="status-bar"><span>9:41</span><span>🔋</span></div>
+  <div style="padding:10px 20px 4px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <div class="page-back" onclick="showScreen('s-mydiet')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></div>
+    <div><h2 style="font-size:19px;font-family:'Syne',sans-serif;font-weight:800">Customize Diet</h2><p style="font-size:11px;color:var(--text3)">Adjust to your budget & preferences</p></div>
+  </div>
+  <div class="scroll-body" style="padding-bottom:32px">
+    <div style="padding:12px 20px;display:flex;flex-direction:column;gap:20px">
+
+      <!-- Budget -->
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px"><span style="font-size:16px">💰</span> Daily Budget</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="budgetOpts">
+          <button class="diet-opt selected" onclick="dietOpt(this,'budget')">₹100–150 <span style="font-size:9px;opacity:.6;display:block">Very Tight</span></button>
+          <button class="diet-opt" onclick="dietOpt(this,'budget')">₹150–250 <span style="font-size:9px;opacity:.6;display:block">Moderate</span></button>
+          <button class="diet-opt" onclick="dietOpt(this,'budget')">₹250–400 <span style="font-size:9px;opacity:.6;display:block">Comfortable</span></button>
+          <button class="diet-opt" onclick="dietOpt(this,'budget')">₹400+ <span style="font-size:9px;opacity:.6;display:block">Flexible</span></button>
+        </div>
+      </div>
+
+      <!-- Cuisine -->
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px"><span style="font-size:16px">🍽️</span> Food Preference</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="cuisineOpts">
+          <button class="diet-opt selected" onclick="dietOpt(this,'cuisine')">🇮🇳 Indian</button>
+          <button class="diet-opt" onclick="dietOpt(this,'cuisine')">🥗 Continental</button>
+          <button class="diet-opt" onclick="dietOpt(this,'cuisine')">🌏 Mixed</button>
+          <button class="diet-opt" onclick="dietOpt(this,'cuisine')">🫘 Vegan</button>
+          <button class="diet-opt" onclick="dietOpt(this,'cuisine')">🥛 Vegetarian</button>
+        </div>
+      </div>
+
+      <!-- Diet Type -->
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px"><span style="font-size:16px">🎯</span> Diet Type</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="dietTypeOpts">
+          <button class="diet-opt selected" onclick="dietOpt(this,'dietType')">High Protein</button>
+          <button class="diet-opt" onclick="dietOpt(this,'dietType')">Balanced</button>
+          <button class="diet-opt" onclick="dietOpt(this,'dietType')">Low Carb</button>
+          <button class="diet-opt" onclick="dietOpt(this,'dietType')">Keto</button>
+        </div>
+      </div>
+
+      <!-- Supplements toggle -->
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px"><span style="font-size:16px">💊</span> Supplements</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between">
+            <div><div style="font-size:13px;font-weight:600">Whey Protein</div><div style="font-size:11px;color:var(--text3)">~₹150/day · 25g protein per scoop</div></div>
+            <div class="diet-toggle" id="tog-whey" onclick="dietToggle('whey')" style="background:var(--surface2)"><div class="diet-toggle-knob"></div></div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between">
+            <div><div style="font-size:13px;font-weight:600">Creatine</div><div style="font-size:11px;color:var(--text3)">~₹15/day · Strength & recovery</div></div>
+            <div class="diet-toggle" id="tog-creatine" onclick="dietToggle('creatine')" style="background:var(--surface2)"><div class="diet-toggle-knob"></div></div>
+          </div>
+          <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px;display:flex;align-items:center;justify-content:space-between">
+            <div><div style="font-size:13px;font-weight:600">Multivitamin</div><div style="font-size:11px;color:var(--text3)">~₹8/day · General health support</div></div>
+            <div class="diet-toggle" id="tog-multi" onclick="dietToggle('multi')" style="background:rgba(200,241,53,.25)"><div class="diet-toggle-knob" style="transform:translateX(20px)"></div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Allergies / Avoid -->
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px"><span style="font-size:16px">⚠️</span> Avoid / Allergies</div>
+        <div style="display:flex;gap:8px;flex-wrap:wrap" id="avoidOpts">
+          <button class="diet-opt" onclick="dietOptMulti(this)">Dairy</button>
+          <button class="diet-opt" onclick="dietOptMulti(this)">Gluten</button>
+          <button class="diet-opt" onclick="dietOptMulti(this)">Eggs</button>
+          <button class="diet-opt selected" onclick="dietOptMulti(this)">Red Meat</button>
+          <button class="diet-opt" onclick="dietOptMulti(this)">Nuts</button>
+          <button class="diet-opt" onclick="dietOptMulti(this)">Soy</button>
+        </div>
+      </div>
+
+      <!-- Meals per day -->
+      <div>
+        <div style="font-size:13px;font-weight:700;margin-bottom:10px;display:flex;align-items:center;gap:7px"><span style="font-size:16px">🕐</span> Meals per Day</div>
+        <div style="display:flex;gap:8px" id="mealsOpts">
+          <button class="diet-opt" onclick="dietOpt(this,'meals')">3 meals</button>
+          <button class="diet-opt selected" onclick="dietOpt(this,'meals')">4 meals</button>
+          <button class="diet-opt" onclick="dietOpt(this,'meals')">5 meals</button>
+          <button class="diet-opt" onclick="dietOpt(this,'meals')">6 meals</button>
+        </div>
+      </div>
+
+      <button class="btn-primary" onclick="applyDietCustom()">Apply & Regenerate Plan ✓</button>
+    </div>
+  </div>
+</div>
+
+
+<!-- ══════════════════════════════════
+     MY PROGRESS SCREEN
+══════════════════════════════════ -->
+<div class="screen" id="s-myprogress">
+  <div class="status-bar"><span>9:41</span><span>🔋</span></div>
+  <div style="padding:10px 20px 4px;display:flex;align-items:center;gap:12px;flex-shrink:0">
+    <div class="page-back" onclick="showScreen('s-onboard')"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg></div>
+    <div><h2 style="font-size:19px;font-family:'Syne',sans-serif;font-weight:800">My Progress</h2><p style="font-size:11px;color:var(--text3)">Week 1 of 12 · Started today</p></div>
+  </div>
+  <div class="scroll-body" style="padding-bottom:24px">
+
+    <!-- Stats grid -->
+    <div style="padding:10px 20px 0;display:grid;grid-template-columns:1fr 1fr;gap:10px">
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Start Weight</div>
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;margin-top:4px">78.0 <span style="font-size:13px;font-weight:500">kg</span></div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Baseline</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid rgba(200,241,53,.2);border-radius:14px;padding:14px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Goal Weight</div>
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--lime);margin-top:4px">72.0 <span style="font-size:13px;font-weight:500">kg</span></div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">-6 kg to go</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Workouts Done</div>
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--blue);margin-top:4px">1 <span style="font-size:13px;font-weight:500">/4</span></div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">This week</div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:14px">
+        <div style="font-size:10px;color:var(--text3);text-transform:uppercase;letter-spacing:.08em">Streak</div>
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:800;color:var(--orange);margin-top:4px">🔥 1 <span style="font-size:13px;font-weight:500">day</span></div>
+        <div style="font-size:11px;color:var(--text3);margin-top:2px">Keep going!</div>
+      </div>
+    </div>
+
+    <!-- Weight chart placeholder -->
+    <div style="margin:14px 20px;background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:16px">
+      <div style="font-weight:700;font-size:13px;margin-bottom:14px">Weight Progress</div>
+      <svg width="100%" height="90" viewBox="0 0 300 90" preserveAspectRatio="none">
+        <defs><linearGradient id="wg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#C8F135" stop-opacity=".3"/><stop offset="100%" stop-color="#C8F135" stop-opacity="0"/></linearGradient></defs>
+        <polyline points="0,80 50,75 100,72 150,68 200,62 250,58 300,54" fill="none" stroke="#C8F135" stroke-width="2.5" stroke-linecap="round"/>
+        <polygon points="0,80 50,75 100,72 150,68 200,62 250,58 300,54 300,90 0,90" fill="url(#wg2)"/>
+        <circle cx="0" cy="80" r="4" fill="#C8F135"/><circle cx="50" cy="75" r="4" fill="#C8F135"/><circle cx="100" cy="72" r="4" fill="#C8F135"/><circle cx="150" cy="68" r="3" fill="rgba(200,241,53,.4)"/><circle cx="200" cy="62" r="3" fill="rgba(200,241,53,.4)"/><circle cx="250" cy="58" r="3" fill="rgba(200,241,53,.4)"/><circle cx="300" cy="54" r="3" fill="rgba(200,241,53,.4)"/>
+      </svg>
+      <div style="display:flex;justify-content:space-between;margin-top:6px">
+        <span style="font-size:10px;color:var(--text3)">Wk1 78kg</span><span style="font-size:10px;color:var(--text3)">Wk4</span><span style="font-size:10px;color:var(--text3)">Wk8</span><span style="font-size:10px;color:var(--lime)">Goal 72kg</span>
+      </div>
+    </div>
+
+    <!-- Weekly goals -->
+    <div style="padding:0 20px;display:flex;flex-direction:column;gap:8px">
+      <div style="font-size:10px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3)">This Week's Goals</div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px;font-weight:600">4 Workouts</span><span style="font-size:12px;color:var(--lime)">1/4</span></div>
+        <div style="height:6px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:25%;background:var(--lime);border-radius:3px"></div></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px;font-weight:600">Hit 165g Protein Daily</span><span style="font-size:12px;color:var(--blue)">1/7</span></div>
+        <div style="height:6px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:14%;background:var(--blue);border-radius:3px"></div></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px;font-weight:600">Log Food Every Day</span><span style="font-size:12px;color:var(--orange)">1/7</span></div>
+        <div style="height:6px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:14%;background:var(--orange);border-radius:3px"></div></div>
+      </div>
+      <div style="background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:12px 14px">
+        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:8px"><span style="font-size:13px;font-weight:600">Sleep 7+ Hours</span><span style="font-size:12px;color:var(--teal)">1/7</span></div>
+        <div style="height:6px;background:var(--surface2);border-radius:3px;overflow:hidden"><div style="height:100%;width:14%;background:var(--teal);border-radius:3px"></div></div>
+      </div>
+
+      <!-- Week check-in CTA -->
+      <div style="margin-top:6px;background:linear-gradient(135deg,rgba(78,158,255,.12),rgba(78,158,255,.04));border:1px solid rgba(78,158,255,.25);border-radius:14px;padding:16px;text-align:center">
+        <div style="font-size:14px;font-weight:700;color:var(--blue);margin-bottom:4px">📸 Weekly Check-in</div>
+        <div style="font-size:12px;color:var(--text3);margin-bottom:12px">Log your weight & progress photos every Monday</div>
+        <button class="btn-primary" style="padding:10px;font-size:13px" onclick="showScreen('s-dashboard')">Log This Week → </button>
       </div>
     </div>
   </div>
@@ -1557,394 +2039,303 @@ input[type=range]::-webkit-slider-thumb {
 </div>
 
 
-<!-- ══════════════════════════════════
+
      SCREEN 5: AI WORKOUT CAMERA
 ══════════════════════════════════ -->
 <style>
-/* ── LIVE FORM CORRECTION STYLES ── */
-.cam-viewport {
+/* ─── Camera viewport ─── */
+.cam-vp {
   position: relative;
   width: 100%;
-  height: 420px;
-  background: #05080f;
+  height: 400px;
+  background: #05080e;
   overflow: hidden;
   flex-shrink: 0;
 }
-
-/* Simulated camera grain */
-.cam-viewport::after {
+/* Subtle vignette */
+.cam-vp::after {
   content:'';
-  position:absolute;
-  inset:0;
-  background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
-  pointer-events:none;
-  z-index:5;
-  opacity:0.4;
+  position:absolute;inset:0;
+  background: radial-gradient(ellipse at 50% 50%, transparent 55%, rgba(5,8,14,0.85) 100%);
+  pointer-events:none;z-index:3;
 }
-
-/* Grid overlay */
-.cam-grid {
-  position:absolute;
-  inset:0;
+/* Scan grid */
+.cam-grid2 {
+  position:absolute;inset:0;z-index:1;pointer-events:none;
   background:
-    repeating-linear-gradient(0deg, rgba(255,255,255,0.02) 0px, transparent 1px, transparent 60px),
-    repeating-linear-gradient(90deg, rgba(255,255,255,0.02) 0px, transparent 1px, transparent 60px);
-  z-index:1;
-  pointer-events:none;
+    repeating-linear-gradient(0deg, rgba(255,255,255,0.018) 0, transparent 1px, transparent 55px),
+    repeating-linear-gradient(90deg, rgba(255,255,255,0.018) 0, transparent 1px, transparent 55px);
 }
-
 /* Corner brackets */
-.cam-bracket {
-  position:absolute;
-  width:28px; height:28px;
-  z-index:6;
-  pointer-events:none;
-}
-.cam-bracket.tl { top:58px; left:16px; border-top:2px solid rgba(200,241,53,0.6); border-left:2px solid rgba(200,241,53,0.6); }
-.cam-bracket.tr { top:58px; right:16px; border-top:2px solid rgba(200,241,53,0.6); border-right:2px solid rgba(200,241,53,0.6); }
-.cam-bracket.bl { bottom:12px; left:16px; border-bottom:2px solid rgba(200,241,53,0.6); border-left:2px solid rgba(200,241,53,0.6); }
-.cam-bracket.br { bottom:12px; right:16px; border-bottom:2px solid rgba(200,241,53,0.6); border-right:2px solid rgba(200,241,53,0.6); }
+.cb { position:absolute;width:22px;height:22px;z-index:6;pointer-events:none; }
+.cb.tl{top:52px;left:14px;border-top:2px solid rgba(200,241,53,.5);border-left:2px solid rgba(200,241,53,.5);}
+.cb.tr{top:52px;right:14px;border-top:2px solid rgba(200,241,53,.5);border-right:2px solid rgba(200,241,53,.5);}
+.cb.bl{bottom:8px;left:14px;border-bottom:2px solid rgba(200,241,53,.5);border-left:2px solid rgba(200,241,53,.5);}
+.cb.br{bottom:8px;right:14px;border-bottom:2px solid rgba(200,241,53,.5);border-right:2px solid rgba(200,241,53,.5);}
 
-/* The skeleton canvas */
-#skeletonCanvas {
-  position:absolute;
-  inset:0;
-  z-index:2;
-  width:100%;
-  height:100%;
-}
-
-/* Angle label bubbles */
-.angle-bubble {
-  position:absolute;
-  background:rgba(8,12,20,0.85);
-  border:1px solid;
-  border-radius:6px;
-  padding:2px 7px;
-  font-size:10px;
-  font-weight:700;
-  font-family:'Syne',sans-serif;
-  pointer-events:none;
-  z-index:8;
-  transition: color 0.3s, border-color 0.3s;
-  white-space:nowrap;
-}
-
-/* Top HUD bar */
-.cam-hud-top {
-  position:absolute;
-  top:0; left:0; right:0;
-  padding:52px 14px 10px;
-  background:linear-gradient(to bottom, rgba(5,8,15,0.85) 60%, transparent);
-  display:flex;
-  justify-content:space-between;
-  align-items:flex-start;
+/* HUD top bar */
+.cam-hud {
+  position:absolute;top:0;left:0;right:0;
+  padding: 46px 12px 10px;
+  background: linear-gradient(to bottom, rgba(5,8,14,.92) 55%, transparent);
+  display:flex;align-items:flex-start;justify-content:space-between;
   z-index:10;
 }
-
-.hud-chip {
-  background:rgba(8,12,20,0.82);
-  border:1px solid rgba(255,255,255,0.1);
-  border-radius:10px;
-  padding:7px 12px;
-  text-align:center;
-  backdrop-filter:blur(8px);
-  min-width:52px;
-}
-.hud-chip-val {
-  font-family:'Syne',sans-serif;
-  font-size:20px;
-  font-weight:800;
-  line-height:1.1;
-}
-.hud-chip-label {
-  font-size:9px;
-  color:rgba(255,255,255,0.4);
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  margin-top:1px;
-}
-
-/* Form status bar — bottom of viewport */
-.form-status-bar {
-  position:absolute;
-  bottom:0; left:0; right:0;
-  z-index:10;
-  padding:10px 14px 12px;
-  background:linear-gradient(to top, rgba(5,8,15,0.95) 70%, transparent);
-  transition: all 0.4s;
-}
-
-.form-status-pill {
-  display:flex;
-  align-items:center;
-  gap:10px;
-  padding:9px 14px;
-  border-radius:12px;
-  border:1px solid;
-  backdrop-filter:blur(10px);
-  transition: all 0.4s ease;
-}
-.form-status-pill.good {
-  background:rgba(0,210,120,0.12);
-  border-color:rgba(0,210,120,0.45);
-}
-.form-status-pill.warn {
-  background:rgba(255,122,53,0.12);
-  border-color:rgba(255,122,53,0.45);
-}
-.form-status-pill.error {
-  background:rgba(255,60,60,0.14);
-  border-color:rgba(255,60,60,0.5);
-}
-
-.form-status-dot {
-  width:9px; height:9px;
-  border-radius:50%;
-  flex-shrink:0;
-  animation:blink2 1s ease-in-out infinite;
-}
-@keyframes blink2 {
-  0%,100%{opacity:1;} 50%{opacity:0.35;}
-}
-.form-status-pill.good  .form-status-dot { background:#00d278; box-shadow:0 0 8px #00d278; }
-.form-status-pill.warn  .form-status-dot { background:var(--orange); box-shadow:0 0 8px var(--orange); animation-duration:0.6s; }
-.form-status-pill.error .form-status-dot { background:#ff3c3c; box-shadow:0 0 8px #ff3c3c; animation-duration:0.4s; }
-
-.form-status-text { flex:1; }
-.form-status-title { font-size:13px; font-weight:700; }
-.form-status-pill.good  .form-status-title { color:#00e890; }
-.form-status-pill.warn  .form-status-title { color:var(--orange); }
-.form-status-pill.error .form-status-title { color:#ff6060; }
-.form-status-sub { font-size:11px; color:rgba(255,255,255,0.45); margin-top:1px; }
-
-.form-score-ring {
-  width:36px; height:36px;
+.hud-back {
+  width:32px;height:32px;background:rgba(255,255,255,.08);
+  border:1px solid rgba(255,255,255,.12);border-radius:9px;
+  display:flex;align-items:center;justify-content:center;cursor:pointer;
   flex-shrink:0;
 }
-
-/* Error flash overlay */
-.error-flash {
-  position:absolute;
-  inset:0;
-  pointer-events:none;
-  z-index:9;
-  opacity:0;
-  border:2px solid rgba(255,60,60,0);
-  transition: all 0.15s;
+.hud-chips { display:flex;gap:6px; }
+.hud-chip2 {
+  background:rgba(5,8,14,.82);
+  border:1px solid rgba(255,255,255,.1);
+  border-radius:10px;padding:7px 12px;text-align:center;
+  backdrop-filter:blur(8px);min-width:56px;
 }
-.error-flash.active {
-  opacity:1;
-  border-color:rgba(255,60,60,0.5);
-  box-shadow:inset 0 0 40px rgba(255,60,60,0.15);
+.hud-chip2-val {
+  font-family:'Syne',sans-serif;font-size:19px;font-weight:800;line-height:1.1;
 }
+.hud-chip2-lbl { font-size:9px;color:rgba(255,255,255,.35);letter-spacing:.1em;margin-top:1px; }
 
-/* Exercise selector tabs */
-.ex-selector {
-  display:flex;
-  gap:6px;
-  padding:10px 14px 6px;
-  overflow-x:auto;
-  scrollbar-width:none;
-  flex-shrink:0;
+/* Detection banner */
+.det-banner {
+  position:absolute;top:50px;left:50%;transform:translateX(-50%);
+  z-index:15;background:rgba(200,241,53,.13);
+  border:1px solid rgba(200,241,53,.4);border-radius:100px;
+  padding:5px 16px;display:flex;align-items:center;gap:8px;
+  white-space:nowrap;transition:opacity .4s;
+}
+.det-dot { width:7px;height:7px;border-radius:50%;background:#C8F135;animation:dblink .65s infinite; }
+@keyframes dblink{0%,100%{opacity:1}50%{opacity:.25}}
+
+/* Form pill bottom of viewport */
+.form-pill-wrap {
+  position:absolute;bottom:0;left:0;right:0;z-index:10;
+  padding:8px 12px 10px;
+  background:linear-gradient(to top, rgba(5,8,14,.96) 65%, transparent);
+}
+.form-pill {
+  display:flex;align-items:center;gap:10px;
+  padding:10px 14px;border-radius:14px;border:1px solid;
+  transition:all .35s;
+}
+.form-pill.good  { background:rgba(0,210,110,.1);  border-color:rgba(0,210,110,.4); }
+.form-pill.warn  { background:rgba(255,140,50,.1);  border-color:rgba(255,140,50,.4); }
+.form-pill.error { background:rgba(255,50,50,.12);  border-color:rgba(255,50,50,.5); }
+.form-pill-dot {
+  width:9px;height:9px;border-radius:50%;flex-shrink:0;
+  animation:pdot 1s ease-in-out infinite;
+}
+@keyframes pdot{0%,100%{opacity:1}50%{opacity:.3}}
+.form-pill.good  .form-pill-dot { background:#00d278;box-shadow:0 0 7px #00d278; }
+.form-pill.warn  .form-pill-dot { background:#FF8C32;box-shadow:0 0 7px #FF8C32;animation-duration:.55s; }
+.form-pill.error .form-pill-dot { background:#ff3c3c;box-shadow:0 0 7px #ff3c3c;animation-duration:.35s; }
+.form-pill-text { flex:1; }
+.form-pill-title { font-size:13px;font-weight:700; }
+.form-pill.good  .form-pill-title { color:#00e890; }
+.form-pill.warn  .form-pill-title { color:#FF9C52; }
+.form-pill.error .form-pill-title { color:#ff6060; }
+.form-pill-sub { font-size:11px;color:rgba(255,255,255,.4);margin-top:2px; }
+/* Score ring */
+.score-ring-svg { width:40px;height:40px;flex-shrink:0; }
+
+/* Error flash */
+.err-flash {
+  position:absolute;inset:0;pointer-events:none;z-index:9;
+  border:2px solid transparent;opacity:0;transition:opacity .15s;
+}
+.err-flash.on { opacity:1;border-color:rgba(255,50,50,.55);box-shadow:inset 0 0 40px rgba(255,50,50,.12); }
+
+/* Posture tip popup */
+.posture-tip {
+  position:absolute;left:12px;right:12px;z-index:12;
+  background:rgba(10,14,24,.92);border:1px solid;border-radius:12px;
+  padding:10px 14px;display:flex;align-items:flex-start;gap:10px;
+  backdrop-filter:blur(10px);transition:all .4s;
+  transform:translateY(0);opacity:1;
+}
+.posture-tip.hidden { transform:translateY(-8px);opacity:0;pointer-events:none; }
+.posture-tip.warn  { border-color:rgba(255,140,50,.4); }
+.posture-tip.error { border-color:rgba(255,50,50,.5); }
+.posture-tip.good  { border-color:rgba(0,210,110,.35); }
+.posture-tip-icon { font-size:18px;flex-shrink:0;margin-top:1px; }
+.posture-tip-body {}
+.posture-tip-head { font-size:13px;font-weight:700;margin-bottom:3px; }
+.posture-tip.warn  .posture-tip-head { color:#FF9C52; }
+.posture-tip.error .posture-tip-head { color:#ff6060; }
+.posture-tip.good  .posture-tip-head { color:#00e890; }
+.posture-tip-desc { font-size:11.5px;color:rgba(255,255,255,.55);line-height:1.45; }
+.posture-tip-fix  { font-size:11px;color:rgba(200,241,53,.7);margin-top:4px;font-weight:600; }
+
+/* Exercise bar below viewport */
+.ex-bar {
   background:var(--bg2);
   border-bottom:1px solid var(--border);
-}
-.ex-selector::-webkit-scrollbar { display:none; }
-.ex-tab {
-  white-space:nowrap;
-  padding:6px 14px;
-  border-radius:100px;
-  font-size:12px;
-  font-weight:600;
-  font-family:'DM Sans',sans-serif;
-  cursor:pointer;
-  border:1px solid var(--border);
-  background:transparent;
-  color:var(--text3);
-  transition:all .2s;
   flex-shrink:0;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:9px 14px;
 }
-.ex-tab.active {
-  background:var(--lime-dim);
-  border-color:var(--lime);
-  color:var(--lime);
+.ex-bar-left {}
+.ex-bar-name {
+  font-family:'Syne',sans-serif;font-size:16px;font-weight:800;
+  display:flex;align-items:center;gap:8px;
 }
+.ex-conf { font-size:10px;font-weight:600;background:rgba(200,241,53,.12);color:#C8F135;border:1px solid rgba(200,241,53,.25);padding:2px 8px;border-radius:100px; }
+.ex-bar-sub { font-size:11px;color:var(--text3);margin-top:1px; }
+.ex-pause-btn {
+  width:36px;height:36px;background:var(--surface);border-radius:10px;
+  border:1px solid var(--border);font-size:15px;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  color:var(--text);transition:all .2s;
+}
+.ex-pause-btn:hover { background:var(--surface2); }
 
-/* Feedback log */
-.feedback-log {
-  background:var(--bg2);
-  padding:10px 14px;
-  flex-shrink:0;
-  border-top:1px solid var(--border);
-  max-height:96px;
-  overflow:hidden;
+/* Stats strip */
+.cam-stats-strip {
+  display:flex;background:var(--bg);border-bottom:1px solid var(--border);flex-shrink:0;
 }
-.feedback-entry {
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding:4px 0;
-  font-size:12px;
-  opacity:0;
-  animation:slideIn .3s forwards;
-  border-bottom:1px solid rgba(255,255,255,0.04);
+.css-item {
+  flex:1;padding:9px 6px;text-align:center;border-right:1px solid var(--border);
 }
-.feedback-entry:last-child { border-bottom:none; }
-@keyframes slideIn {
-  from{opacity:0;transform:translateY(4px);}
-  to{opacity:1;transform:translateY(0);}
-}
-.fb-icon { font-size:14px; flex-shrink:0; }
-.fb-time { font-size:10px; color:var(--text3); flex-shrink:0; }
+.css-item:last-child { border-right:none; }
+.css-val { font-family:'Syne',sans-serif;font-size:17px;font-weight:800;line-height:1.1; }
+.css-lbl { font-size:9px;text-transform:uppercase;letter-spacing:.1em;color:var(--text3);margin-top:2px; }
 
-/* Bottom stats bar */
-.cam-stats-row {
-  display:flex;
-  gap:0;
-  background:var(--bg);
-  border-top:1px solid var(--border);
-  flex-shrink:0;
+/* Feedback feed */
+.fb-feed {
+  flex:1;overflow-y:auto;background:var(--bg);
+  scrollbar-width:none;min-height:0;
 }
-.cam-stat {
-  flex:1;
-  padding:10px 8px;
-  text-align:center;
-  border-right:1px solid var(--border);
+.fb-feed::-webkit-scrollbar{display:none}
+.fb-row {
+  display:flex;align-items:flex-start;gap:9px;
+  padding:9px 14px;border-bottom:1px solid rgba(255,255,255,.04);
+  animation:fbSlide .3s ease;
 }
-.cam-stat:last-child { border-right:none; }
-.cam-stat-val {
-  font-family:'Syne',sans-serif;
-  font-size:18px;
-  font-weight:800;
-  line-height:1.1;
-}
-.cam-stat-label {
-  font-size:9px;
-  text-transform:uppercase;
-  letter-spacing:.08em;
-  color:var(--text3);
-  margin-top:2px;
+@keyframes fbSlide{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:translateY(0)}}
+.fb-row-icon { font-size:14px;flex-shrink:0;margin-top:1px; }
+.fb-row-body { flex:1; }
+.fb-row-title { font-size:12px;font-weight:600; }
+.fb-row-desc  { font-size:11px;color:var(--text3);margin-top:1px;line-height:1.4; }
+.fb-row-time  { font-size:10px;color:var(--text3);flex-shrink:0;padding-top:2px; }
+
+/* Angle bubble */
+.ang-bub {
+  position:absolute;z-index:8;
+  background:rgba(6,10,18,.88);border:1px solid;
+  border-radius:7px;padding:2px 7px;
+  font-family:'Syne',sans-serif;font-size:10px;font-weight:700;
+  pointer-events:none;white-space:nowrap;backdrop-filter:blur(4px);
+  transition:color .3s,border-color .3s;
 }
 </style>
 
 <div class="screen" id="s-camera">
-  <div class="status-bar" style="background:transparent;position:absolute;top:0;left:0;right:0;z-index:30"><span>9:41</span><span>🔋</span></div>
+  <!-- Status bar -->
+  <div style="height:46px;flex-shrink:0;background:rgba(5,8,14,.95);display:flex;align-items:flex-end;justify-content:space-between;padding:0 18px 8px;position:relative;z-index:20">
+    <span style="font-size:12px;font-weight:700">9:41</span>
+    <span style="font-size:12px">🔋</span>
+  </div>
 
   <!-- ── LIVE VIEWPORT ── -->
-  <div class="cam-viewport">
-    <!-- Subtle camera grain texture -->
-    <div style="position:absolute;inset:0;background:radial-gradient(ellipse at 50% 30%,rgba(20,30,50,0.4) 0%,rgba(5,8,15,0.9) 100%);z-index:1;pointer-events:none"></div>
-    <!-- Grid -->
-    <div class="cam-grid"></div>
-    <!-- Corner brackets -->
-    <div class="cam-bracket tl"></div>
-    <div class="cam-bracket tr"></div>
-    <div class="cam-bracket bl"></div>
-    <div class="cam-bracket br"></div>
-    <!-- Skeleton canvas -->
-    <canvas id="skeletonCanvas" style="position:absolute;inset:0;z-index:2;width:100%;height:100%"></canvas>
-    <!-- Angle bubbles (positioned by JS) -->
-    <div class="angle-bubble" id="ab-0" style="display:none"></div>
-    <div class="angle-bubble" id="ab-1" style="display:none"></div>
-    <div class="angle-bubble" id="ab-2" style="display:none"></div>
-    <div class="angle-bubble" id="ab-3" style="display:none"></div>
+  <div class="cam-vp">
+    <div class="cam-grid2"></div>
+    <div class="cb tl"></div><div class="cb tr"></div>
+    <div class="cb bl"></div><div class="cb br"></div>
+    <canvas id="camCanvas" style="position:absolute;inset:0;z-index:2;width:100%;height:100%"></canvas>
+
+    <!-- Angle bubbles (JS positioned) -->
+    <div class="ang-bub" id="angB0" style="display:none"></div>
+    <div class="ang-bub" id="angB1" style="display:none"></div>
+    <div class="ang-bub" id="angB2" style="display:none"></div>
+    <div class="ang-bub" id="angB3" style="display:none"></div>
+
     <!-- Error flash -->
-    <div class="error-flash" id="errorFlash"></div>
+    <div class="err-flash" id="camFlash"></div>
 
-    <!-- ── TOP HUD ── -->
-    <div class="cam-hud-top">
-      <div onclick="showScreen('s-dashboard')" style="width:34px;height:34px;background:rgba(8,12,20,0.85);border-radius:10px;display:flex;align-items:center;justify-content:center;cursor:pointer;border:1px solid rgba(255,255,255,0.12)">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
+    <!-- Top HUD -->
+    <div class="cam-hud">
+      <div class="hud-back" onclick="showScreen('s-dashboard')">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2.5"><path d="M15 18l-6-6 6-6"/></svg>
       </div>
-      <div style="display:flex;gap:6px">
-        <div class="hud-chip">
-          <div class="hud-chip-val" id="repCounter" style="color:#C8F135">0</div>
-          <div class="hud-chip-label">REPS</div>
-        </div>
-        <div class="hud-chip">
-          <div class="hud-chip-val" id="setCounter">1/4</div>
-          <div class="hud-chip-label">SETS</div>
-        </div>
-        <div class="hud-chip">
-          <div class="hud-chip-val" id="timerDisplay">0:00</div>
-          <div class="hud-chip-label">TIME</div>
-        </div>
+      <div class="hud-chips">
+        <div class="hud-chip2"><div class="hud-chip2-val" id="hReps" style="color:#C8F135">0</div><div class="hud-chip2-lbl">REPS</div></div>
+        <div class="hud-chip2"><div class="hud-chip2-val" id="hSets">1/4</div><div class="hud-chip2-lbl">SETS</div></div>
+        <div class="hud-chip2"><div class="hud-chip2-val" id="hTime">0:00</div><div class="hud-chip2-lbl">TIME</div></div>
       </div>
     </div>
 
-    <!-- ── AI DETECT BANNER (shows during detection) ── -->
-    <div id="detectBanner" style="position:absolute;top:54px;left:50%;transform:translateX(-50%);z-index:20;background:rgba(200,241,53,0.15);border:1px solid rgba(200,241,53,0.4);border-radius:100px;padding:5px 14px;display:flex;align-items:center;gap:8px;white-space:nowrap;transition:opacity .4s">
-      <div style="width:7px;height:7px;border-radius:50%;background:#C8F135;animation:blink2 .7s infinite"></div>
-      <span style="font-size:11px;font-weight:700;color:#C8F135;letter-spacing:.05em" id="detectLabel">Scanning movement…</span>
+    <!-- Detection banner -->
+    <div class="det-banner" id="detBanner">
+      <div class="det-dot"></div>
+      <span style="font-size:11px;font-weight:700;color:#C8F135" id="detLabel">Scanning movement…</span>
     </div>
 
-    <!-- ── FORM STATUS BAR ── -->
-    <div class="form-status-bar">
-      <div class="form-status-pill good" id="formStatusPill">
-        <div class="form-status-dot"></div>
-        <div class="form-status-text">
-          <div class="form-status-title" id="formStatusTitle">Detecting exercise…</div>
-          <div class="form-status-sub"   id="formStatusSub">Point camera at your full body</div>
+    <!-- Posture tip popup (mid-screen) -->
+    <div class="posture-tip hidden good" id="postureTip" style="top:52px">
+      <div class="posture-tip-icon" id="ptIcon">✅</div>
+      <div class="posture-tip-body">
+        <div class="posture-tip-head" id="ptHead">Form: Excellent</div>
+        <div class="posture-tip-desc" id="ptDesc">Perfect depth on every rep</div>
+        <div class="posture-tip-fix" id="ptFix"></div>
+      </div>
+    </div>
+
+    <!-- Form status -->
+    <div class="form-pill-wrap">
+      <div class="form-pill good" id="formPill">
+        <div class="form-pill-dot"></div>
+        <div class="form-pill-text">
+          <div class="form-pill-title" id="fpTitle">Detecting exercise…</div>
+          <div class="form-pill-sub"   id="fpSub">Point camera at your full body</div>
         </div>
-        <svg class="form-score-ring" viewBox="0 0 36 36">
-          <circle cx="18" cy="18" r="15" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="3"/>
-          <circle id="scoreArc" cx="18" cy="18" r="15" fill="none" stroke="#00d278" stroke-width="3"
-            stroke-dasharray="94.2" stroke-dashoffset="9.4" stroke-linecap="round"
-            transform="rotate(-90 18 18)" style="transition:stroke-dashoffset .5s,stroke .4s"/>
-          <text x="18" y="22" text-anchor="middle" font-family="Syne,sans-serif" font-size="9" font-weight="800" fill="white" id="scoreText">—</text>
+        <svg class="score-ring-svg" viewBox="0 0 40 40">
+          <circle cx="20" cy="20" r="16" fill="none" stroke="rgba(255,255,255,.08)" stroke-width="3.5"/>
+          <circle id="sArc" cx="20" cy="20" r="16" fill="none" stroke="#00d278" stroke-width="3.5"
+            stroke-dasharray="100.5" stroke-dashoffset="10" stroke-linecap="round"
+            transform="rotate(-90 20 20)" style="transition:stroke-dashoffset .5s,stroke .4s"/>
+          <text x="20" y="24" text-anchor="middle" font-family="Syne,sans-serif" font-size="9" font-weight="800" fill="white" id="sScore">—</text>
         </svg>
       </div>
     </div>
   </div>
 
-  <!-- ── DETECTED EXERCISE HEADER ── -->
-  <div style="background:var(--bg2);padding:10px 16px 10px;border-bottom:1px solid var(--border);flex-shrink:0">
-    <div style="display:flex;align-items:center;justify-content:space-between">
-      <div>
-        <div style="font-size:9px;text-transform:uppercase;letter-spacing:.12em;color:var(--text3);margin-bottom:3px;display:flex;align-items:center;gap:6px">
-          <span style="width:6px;height:6px;border-radius:50%;background:#C8F135;box-shadow:0 0 6px #C8F135;display:inline-block;animation:blink2 1s infinite"></span>
-          AI DETECTING LIVE
-        </div>
-        <div style="font-family:'Syne',sans-serif;font-size:18px;font-weight:800;display:flex;align-items:center;gap:8px;flex-wrap:wrap">
-          <span id="exNameDisplay">Scanning…</span>
-          <span id="exConfBadge" style="font-size:10px;font-weight:600;background:rgba(200,241,53,0.12);color:#C8F135;border:1px solid rgba(200,241,53,0.25);padding:2px 9px;border-radius:100px;display:none">97% match</span>
-        </div>
-        <div id="muscleGroup" style="font-size:11px;color:var(--text3);margin-top:2px">—</div>
+  <!-- ── EXERCISE BAR ── -->
+  <div class="ex-bar">
+    <div class="ex-bar-left">
+      <div class="ex-bar-name">
+        <span id="exNameEl">—</span>
+        <span class="ex-conf" id="exConfEl" style="display:none">97%</span>
       </div>
-      <button onclick="togglePause()" id="pauseBtn" style="width:38px;height:38px;background:var(--surface);border-radius:10px;border:1px solid var(--border);font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;flex-shrink:0">⏸</button>
+      <div class="ex-bar-sub" id="exSubEl">AI scanning your movement…</div>
+    </div>
+    <button class="ex-pause-btn" id="pauseBtn2" onclick="toggleCamPause()">⏸</button>
+  </div>
+
+  <!-- ── STATS STRIP ── -->
+  <div class="cam-stats-strip">
+    <div class="css-item"><div class="css-val" id="stReps" style="color:#C8F135">0</div><div class="css-lbl">Total Reps</div></div>
+    <div class="css-item"><div class="css-val" id="stSets" style="color:#4E9EFF">1</div><div class="css-lbl">Sets</div></div>
+    <div class="css-item"><div class="css-val" id="stKcal" style="color:#FF7A35">0</div><div class="css-lbl">Kcal</div></div>
+    <div class="css-item"><div class="css-val" id="stForm" style="color:#C8F135">—</div><div class="css-lbl">Form %</div></div>
+    <div class="css-item"><div class="css-val" id="stVol" style="color:#FF4F8B">0</div><div class="css-lbl">Volume</div></div>
+  </div>
+
+  <!-- ── FEEDBACK FEED ── -->
+  <div class="fb-feed" id="fbFeed">
+    <div class="fb-row">
+      <span class="fb-row-icon">🎯</span>
+      <div class="fb-row-body">
+        <div class="fb-row-title" style="color:#C8F135">AI Camera Ready</div>
+        <div class="fb-row-desc">Stand in front of camera — I'll detect your workout automatically</div>
+      </div>
+      <span class="fb-row-time">0:00</span>
     </div>
   </div>
 
-  <!-- ── STATS ROW ── -->
-  <div class="cam-stats-row" style="flex-shrink:0">
-    <div class="cam-stat">
-      <div class="cam-stat-val" id="calStat" style="color:var(--orange)">0</div>
-      <div class="cam-stat-label">Kcal</div>
-    </div>
-    <div class="cam-stat">
-      <div class="cam-stat-val" id="formScore" style="color:var(--lime)">—</div>
-      <div class="cam-stat-label">Form %</div>
-    </div>
-    <div class="cam-stat">
-      <div class="cam-stat-val" id="volumeStat" style="color:var(--blue)">0</div>
-      <div class="cam-stat-label">Volume</div>
-    </div>
-    <div class="cam-stat">
-      <div class="cam-stat-val" id="totalRepsDisplay" style="color:var(--pink)">0</div>
-      <div class="cam-stat-label">Total Reps</div>
-    </div>
-  </div>
-
-  <!-- ── LIVE FEEDBACK LOG ── -->
-  <div class="feedback-log" id="feedbackLog" style="flex:1;max-height:unset;overflow-y:auto">
-    <div class="feedback-entry" style="opacity:1">
-      <span class="fb-icon">🎯</span>
-      <span style="color:var(--text2);flex:1;font-size:12px">AI camera ready — begin your workout</span>
-      <span class="fb-time">0:00</span>
-    </div>
-  </div>
-
+  <!-- Bottom nav -->
   <div class="bottom-nav">
     <div class="nav-item" onclick="switchNav(this,'s-dashboard')">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
@@ -1969,8 +2360,6 @@ input[type=range]::-webkit-slider-thumb {
   </div>
 </div>
 
-
-<!-- ══════════════════════════════════
      SCREEN 6: FOOD SCANNER
 ══════════════════════════════════ -->
 <div class="screen" id="s-food">
@@ -2347,81 +2736,17 @@ input[type=range]::-webkit-slider-thumb {
 
     <!-- Features -->
     <div style="padding:0 20px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;margin-bottom:12px">What's Included</div>
-   <div style="display:flex;flex-direction:column;gap:8px;padding:0 20px 24px">
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">📹</span>
-<div>
-<div style="font-weight:600;font-size:14px">AI Camera Workout Detection</div>
-<div style="font-size:12px;color:var(--text3)">Auto-count reps & sets using your phone</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">🪞</span>
-<div>
-<div style="font-weight:600;font-size:14px">Real-time Form Correction</div>
-<div style="font-size:12px;color:var(--text3)">Live AI posture analysis & feedback</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">📸</span>
-<div>
-<div style="font-weight:600;font-size:14px">Food Photo Scanner</div>
-<div style="font-size:12px;color:var(--text3)">Instant nutrition from any meal photo</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">📋</span>
-<div>
-<div style="font-weight:600;font-size:14px">Personalized Workout Plans</div>
-<div style="font-size:12px;color:var(--text3)">AI-generated plans tailored to you</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">🥗</span>
-<div>
-<div style="font-weight:600;font-size:14px">Personalized Diet Plans</div>
-<div style="font-size:12px;color:var(--text3)">Custom meal plans based on your goals</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">📊</span>
-<div>
-<div style="font-weight:600;font-size:14px">Advanced Analytics</div>
-<div style="font-size:12px;color:var(--text3)">Deep dive into your progress data</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">💊</span>
-<div>
-<div style="font-weight:600;font-size:14px">Supplement Guidance</div>
-<div style="font-size:12px;color:var(--text3)">Expert supplement recommendations</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-<div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
-<span style="font-size:22px">🩺</span>
-<div>
-<div style="font-weight:600;font-size:14px">Health Condition Plans</div>
-<div style="font-size:12px;color:var(--text3)">Safe workouts for medical conditions</div>
-</div>
-<div style="margin-left:auto;color:var(--lime);font-size:16px">✓</div>
-</div>
-
-</div>
+    <div style="display:flex;flex-direction:column;gap:8px;padding:0 20px 24px">
+      ${[
+        ['📹','AI Camera Workout Detection','Auto-count reps & sets using your phone'],
+        ['🪞','Real-time Form Correction','Live AI posture analysis & feedback'],
+        ['📸','Food Photo Scanner','Instant nutrition from any meal photo'],
+        ['📋','Personalized Workout Plans','AI-generated plans tailored to you'],
+        ['🥗','Personalized Diet Plans','Custom meal plans based on your goals'],
+        ['📊','Advanced Analytics','Deep dive into your progress data'],
+        ['💊','Supplement Guidance','Expert supplement recommendations'],
+        ['🩺','Health Condition Plans','Safe workouts for medical conditions'],
+      ].map(([icon,title,sub]) => `
         <div style="display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--border);border-radius:var(--radius-sm);padding:14px 16px">
           <span style="font-size:22px">${icon}</span>
           <div>
@@ -2601,636 +2926,850 @@ document.getElementById('chatInput').addEventListener('keydown', e => {
 buildDots();
 
 
-// ════════════════════════════════════════════════════
-//  FitAI — SMART AUTO-DETECT WORKOUT ENGINE v3
-//  AI reads movement patterns → auto-identifies exercise
-//  → counts reps/sets → gives live form corrections
-// ════════════════════════════════════════════════════
 
-const ALL_EXERCISES = {
-  pushup:   { name:'Push-Up',        emoji:'🫸', calPerRep:0.5, muscle:'Chest · Triceps · Core',        speed:58 },
-  squat:    { name:'Squat',          emoji:'🦵', calPerRep:0.8, muscle:'Quads · Glutes · Hamstrings',   speed:65 },
-  deadlift: { name:'Deadlift',       emoji:'🏋️', calPerRep:1.2, muscle:'Back · Glutes · Hamstrings',    speed:72 },
-  curl:     { name:'Bicep Curl',     emoji:'💪', calPerRep:0.3, muscle:'Biceps · Forearms',              speed:52 },
-  lunge:    { name:'Lunge',          emoji:'🚶', calPerRep:0.6, muscle:'Quads · Glutes · Balance',       speed:62 },
-  plank:    { name:'Plank (Hold)',   emoji:'🧱', calPerRep:0.0, muscle:'Core · Shoulders · Glutes',      speed:0  },
-  press:    { name:'Shoulder Press', emoji:'🙌', calPerRep:0.4, muscle:'Shoulders · Triceps',            speed:56 },
-  row:      { name:'Bent-Over Row',  emoji:'🪝', calPerRep:0.7, muscle:'Back · Biceps · Core',           speed:62 },
+// ════════════════════════════════════════════════════════
+//  FitAI — AI WORKOUT TRACKER v4
+//  Auto-detects ANY exercise from body movement
+//  Tracks: exercise name · reps · sets · form score
+//  Real-time posture corrections with specific fixes
+// ════════════════════════════════════════════════════════
+
+const CAM = document.getElementById('camCanvas');
+const CTX = CAM ? CAM.getContext('2d') : null;
+
+// ─────────────────────────────────────────────────────
+//  EXERCISE DATABASE  (9 exercises, realistic data)
+// ─────────────────────────────────────────────────────
+const EXDB = {
+  pushup:       { name:'Push-Up',         icon:'🤸', kcal:.5,  wt:0,   conf:97, muscle:'Chest · Triceps · Core',      spd:56 },
+  squat:        { name:'Squat',           icon:'🏋️', kcal:.8,  wt:0,   conf:95, muscle:'Quads · Glutes · Hamstrings', spd:64 },
+  deadlift:     { name:'Deadlift',        icon:'💪', kcal:1.2, wt:100, conf:93, muscle:'Back · Glutes · Hamstrings',  spd:70 },
+  curl:         { name:'Bicep Curl',      icon:'💪', kcal:.3,  wt:15,  conf:98, muscle:'Biceps · Forearms',           spd:52 },
+  shoulderpress:{ name:'Shoulder Press',  icon:'🏋️', kcal:.6,  wt:30,  conf:94, muscle:'Shoulders · Triceps',        spd:58 },
+  lunge:        { name:'Lunge',           icon:'🦵', kcal:.6,  wt:0,   conf:96, muscle:'Quads · Glutes · Balance',    spd:60 },
+  plank:        { name:'Plank',           icon:'🧘', kcal:.08, wt:0,   conf:99, muscle:'Core · Shoulders · Glutes',   spd:300 },
+  jumpingjack:  { name:'Jumping Jacks',   icon:'⚡', kcal:.35, wt:0,   conf:97, muscle:'Full Body · Cardio',          spd:30 },
+  benchpress:   { name:'Bench Press',     icon:'🏋️', kcal:.9,  wt:70,  conf:92, muscle:'Chest · Shoulders · Triceps', spd:62 },
 };
 
-// Detection sequence — simulates AI scanning and cycling thru workouts
-const DETECT_ORDER = ['pushup','squat','deadlift','curl','lunge','press','row','plank'];
-
-const FORM_DATA = {
-  pushup:   [
-    { score:94, status:'good',  title:'Form: Excellent ✓',      sub:'Perfect depth — full range of motion',      e:90,  k:180, h:175, b:182 },
-    { score:88, status:'good',  title:'Form: Good ✓',           sub:'Solid reps — keep that core tight',         e:95,  k:180, h:172, b:179 },
-    { score:58, status:'warn',  title:'⚠ Straighten Your Back', sub:'Lower back sagging — brace your abs now',   e:92,  k:180, h:155, b:158 },
-    { score:44, status:'error', title:'⚠ Keep Elbows In!',      sub:'Flaring elbows — tuck to 45° from body',   e:138, k:180, h:170, b:176 },
-    { score:72, status:'warn',  title:'⚠ Slow Down',            sub:'Too fast — control the descent phase',      e:90,  k:180, h:174, b:178 },
+// ─────────────────────────────────────────────────────
+//  FORM CORRECTION DATABASE
+//  Each exercise has: good reps AND bad rep scenarios
+//  Each scenario has: status, score, title, description,
+//  fix (what to do), joint angles, which joints are bad
+// ─────────────────────────────────────────────────────
+const FORMS = {
+  pushup: [
+    {
+      status:'good', score:94,
+      title:'Form: Excellent ✓',
+      desc:'Perfect depth — full range of motion',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Elbow',v:90,j:4},{l:'Back',v:180,j:1},{l:'Hip',v:178,j:8}]
+    },{
+      status:'good', score:88,
+      title:'Form: Good ✓',
+      desc:'Strong reps, core is engaged well',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Elbow',v:96,j:4},{l:'Back',v:177,j:1}]
+    },{
+      status:'warn', score:62,
+      title:'⚠ Straighten Your Back',
+      desc:'Lower back is sagging towards the floor',
+      fix:'FIX: Squeeze your glutes + brace abs like someone is about to punch you',
+      icon:'⚠️',
+      angles:[{l:'Elbow',v:93,j:4},{l:'Back',v:154,j:1,bad:1},{l:'Hip',v:156,j:8,bad:1}]
+    },{
+      status:'error', score:40,
+      title:'⚠ Keep Elbows In!',
+      desc:'Elbows flaring out at 90° — puts strain on shoulder joints',
+      fix:'FIX: Rotate hands slightly outward, tuck elbows to 45° angle from your torso',
+      icon:'🚨',
+      angles:[{l:'Elbow',v:135,j:4,bad:1},{l:'Back',v:176,j:1}]
+    },{
+      status:'warn', score:55,
+      title:'⚠ Slow Down Your Pace',
+      desc:'Moving too fast — losing tension at the bottom',
+      fix:'FIX: 2 seconds down, 1 second pause, 1 second up. Control every inch',
+      icon:'⚠️',
+      angles:[{l:'Elbow',v:88,j:4},{l:'Back',v:179,j:1}]
+    },
   ],
-  squat:    [
-    { score:96, status:'good',  title:'Form: Excellent ✓',      sub:'Perfect depth — knees tracking toes',       e:160, k:88,  h:94,  b:176 },
-    { score:68, status:'warn',  title:'⚠ Knees Past Toes',      sub:'Shift weight back — drive through heels',   e:155, k:72,  h:90,  b:172 },
-    { score:50, status:'error', title:'⚠ Lower Your Hips!',     sub:'Too shallow — aim for parallel or below',   e:158, k:118, h:120, b:174 },
-    { score:63, status:'warn',  title:'⚠ Chest Up',             sub:'Torso collapsing — keep chest tall',        e:152, k:92,  h:96,  b:152 },
+  squat: [
+    {
+      status:'good', score:95,
+      title:'Form: Excellent ✓',
+      desc:'Perfect depth — knees tracking over toes',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Knee',v:90,j:10},{l:'Hip',v:95,j:8},{l:'Spine',v:175,j:1}]
+    },{
+      status:'warn', score:65,
+      title:'⚠ Knees Caving Inward',
+      desc:'Both knees collapsing toward each other',
+      fix:'FIX: Push knees out in the direction of your pinky toe throughout the squat',
+      icon:'⚠️',
+      angles:[{l:'Knee',v:78,j:10,bad:1},{l:'Hip',v:92,j:8}]
+    },{
+      status:'error', score:48,
+      title:'⚠ Go Deeper!',
+      desc:'Hip crease is not reaching below parallel',
+      fix:'FIX: Sit back and down — imagine sitting onto a low chair behind you',
+      icon:'🚨',
+      angles:[{l:'Knee',v:118,j:10,bad:1},{l:'Hip',v:120,j:8,bad:1}]
+    },{
+      status:'warn', score:60,
+      title:'⚠ Chest Falling Forward',
+      desc:'Torso is leaning too far forward, rounding the back',
+      fix:'FIX: Look at a spot on the wall in front, drive elbows down to keep chest up',
+      icon:'⚠️',
+      angles:[{l:'Knee',v:91,j:10},{l:'Spine',v:152,j:1,bad:1}]
+    },
   ],
   deadlift: [
-    { score:91, status:'good',  title:'Form: Excellent ✓',      sub:'Neutral spine — perfect bar path',          e:170, k:150, h:80,  b:172 },
-    { score:46, status:'error', title:'🚨 Round Back — Stop!',  sub:'Dangerous spinal loading! Lower weight',    e:168, k:148, h:82,  b:138 },
-    { score:66, status:'warn',  title:'⚠ Hips Too High',        sub:'Drive hips forward at lockout',             e:165, k:155, h:62,  b:166 },
-    { score:82, status:'good',  title:'Form: Good ✓',           sub:'Strong lockout — squeeze glutes at top',    e:170, k:178, h:178, b:180 },
+    {
+      status:'good', score:91,
+      title:'Form: Excellent ✓',
+      desc:'Neutral spine — bar tracking close to the body',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Hip',v:80,j:8},{l:'Spine',v:172,j:1},{l:'Knee',v:148,j:10}]
+    },{
+      status:'error', score:38,
+      title:'🚨 STOP — Spine Rounding!',
+      desc:'Serious lower back rounding — high injury risk right now',
+      fix:'FIX: Reduce weight. Hinge from hips, chest up, think "proud chest" before every pull',
+      icon:'🚨',
+      angles:[{l:'Spine',v:138,j:1,bad:1},{l:'Hip',v:80,j:8,bad:1}]
+    },{
+      status:'warn', score:63,
+      title:'⚠ Bar Drifting Away',
+      desc:'Bar is moving away from your body, losing leverage',
+      fix:'FIX: Drag the bar up your shins and thighs. Keep it in contact with your legs throughout',
+      icon:'⚠️',
+      angles:[{l:'Hip',v:82,j:8},{l:'Spine',v:168,j:1}]
+    },
   ],
-  curl:     [
-    { score:97, status:'good',  title:'Form: Perfect ✓',        sub:'Full range — excellent peak contraction',   e:32,  k:178, h:180, b:183 },
-    { score:58, status:'warn',  title:'⚠ No Body Swing!',       sub:'Elbows pinned to ribs — biceps only',       e:45,  k:176, h:165, b:168 },
-    { score:74, status:'warn',  title:'⚠ Full Extension',       sub:'Lower fully — do not cut range short',      e:168, k:178, h:178, b:182 },
+  curl: [
+    {
+      status:'good', score:97,
+      title:'Form: Perfect ✓',
+      desc:'Full range — excellent mind-muscle connection',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Elbow',v:32,j:4},{l:'Spine',v:182,j:1}]
+    },{
+      status:'warn', score:55,
+      title:'⚠ Stop Swinging!',
+      desc:'Upper body is rocking back to help lift the weight',
+      fix:'FIX: Pin elbows against your sides. If you must swing, the weight is too heavy — drop 20%',
+      icon:'⚠️',
+      angles:[{l:'Elbow',v:42,j:4},{l:'Spine',v:166,j:1,bad:1}]
+    },{
+      status:'warn', score:68,
+      title:'⚠ Fully Extend at Bottom',
+      desc:'Not locking out at the bottom — cutting the range short',
+      fix:'FIX: Lower fully until arms are almost straight (soft elbow). Full ROM = more gains',
+      icon:'⚠️',
+      angles:[{l:'Elbow',v:158,j:4,bad:1}]
+    },
   ],
-  lunge:    [
-    { score:89, status:'good',  title:'Form: Good ✓',           sub:'Strong 90 degree front knee — balanced',    e:156, k:91,  h:102, b:181 },
-    { score:53, status:'warn',  title:'⚠ Knee Alignment',       sub:'Front knee caving in — push outward',       e:152, k:86,  h:98,  b:179 },
-    { score:76, status:'warn',  title:'⚠ Deeper Step',          sub:'Wider stride needed for 90 degree bend',    e:150, k:112, h:116, b:180 },
+  shoulderpress: [
+    {
+      status:'good', score:92,
+      title:'Form: Excellent ✓',
+      desc:'Full overhead lock-out — great shoulder activation',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Elbow',v:178,j:4},{l:'Spine',v:180,j:1}]
+    },{
+      status:'warn', score:58,
+      title:'⚠ Lock Out at the Top',
+      desc:'Stopping short of full overhead extension',
+      fix:'FIX: Press all the way until elbows lock — that top 10% is where the shoulder caps fire most',
+      icon:'⚠️',
+      angles:[{l:'Elbow',v:152,j:4,bad:1}]
+    },{
+      status:'warn', score:52,
+      title:'⚠ Flared Ribs / Arch',
+      desc:'Lower back excessively arching under load',
+      fix:'FIX: Tuck your pelvis slightly, brace your core, keep ribs down before pressing',
+      icon:'⚠️',
+      angles:[{l:'Spine',v:160,j:1,bad:1},{l:'Hip',v:172,j:8,bad:1}]
+    },
   ],
-  plank:    [
-    { score:96, status:'good',  title:'Form: Perfect ✓',        sub:'Dead straight line — incredible hold!',     e:90,  k:179, h:181, b:182 },
-    { score:49, status:'warn',  title:'⚠ Hips Piking Up',       sub:'Drop hips to neutral — squeeze glutes',     e:90,  k:177, h:152, b:179 },
-    { score:52, status:'error', title:'⚠ Core Sagging!',        sub:'Hips dropping — brace abs and glutes',      e:90,  k:175, h:162, b:160 },
+  lunge: [
+    {
+      status:'good', score:89,
+      title:'Form: Good ✓',
+      desc:'Front knee at 90° — balanced and controlled',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Knee',v:91,j:10},{l:'Hip',v:100,j:8}]
+    },{
+      status:'warn', score:50,
+      title:'⚠ Front Knee Caving In',
+      desc:'Leading knee tracking inward — ankle, knee stress risk',
+      fix:'FIX: Drive the knee outward in line with your 2nd toe. Strengthen glutes with hip thrusts',
+      icon:'⚠️',
+      angles:[{l:'Knee',v:86,j:10,bad:1}]
+    },{
+      status:'warn', score:65,
+      title:'⚠ Step Wider',
+      desc:'Step is too short — front knee going past toes',
+      fix:'FIX: Take a bigger step forward. Front shin should stay close to vertical when lowering',
+      icon:'⚠️',
+      angles:[{l:'Knee',v:112,j:10,bad:1},{l:'Hip',v:116,j:8,bad:1}]
+    },
   ],
-  press:    [
-    { score:93, status:'good',  title:'Form: Excellent ✓',      sub:'Full lockout — excellent overhead power',   e:180, k:178, h:178, b:180 },
-    { score:61, status:'warn',  title:'⚠ Excessive Arch',       sub:'Lower back arching — tighten your core',    e:175, k:176, h:176, b:152 },
-    { score:78, status:'warn',  title:'⚠ Elbow Tracking',       sub:'Keep elbows directly under wrists',         e:90,  k:178, h:179, b:179 },
+  plank: [
+    {
+      status:'good', score:96,
+      title:'Form: Perfect ✓',
+      desc:'Dead straight line from head to heels',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Spine',v:181,j:1},{l:'Hip',v:180,j:8}]
+    },{
+      status:'warn', score:45,
+      title:'⚠ Hips Piking Up',
+      desc:'Hips rising above the straight line — core not engaged',
+      fix:'FIX: Squeeze glutes hard, pull belly button in. Imagine a glass of water sitting on your lower back',
+      icon:'⚠️',
+      angles:[{l:'Hip',v:153,j:8,bad:1},{l:'Spine',v:175,j:1}]
+    },{
+      status:'error', score:42,
+      title:'⚠ Hips Sagging Down',
+      desc:'Lower back collapsing — compressing the spine',
+      fix:'FIX: Brace abs, squeeze glutes. If you can\'t hold 30s with good form, drop to knees first',
+      icon:'🚨',
+      angles:[{l:'Hip',v:163,j:8,bad:1},{l:'Spine',v:160,j:1,bad:1}]
+    },
   ],
-  row:      [
-    { score:90, status:'good',  title:'Form: Excellent ✓',      sub:'Full scapular retraction — great work',     e:90,  k:160, h:82,  b:175 },
-    { score:55, status:'warn',  title:'⚠ Neutral Spine',        sub:'Back rounding — keep it flat and tight',    e:92,  k:158, h:80,  b:148 },
-    { score:70, status:'warn',  title:'⚠ Elbow Path',           sub:'Pull elbows straight back, not flared',     e:95,  k:162, h:84,  b:172 },
+  jumpingjack: [
+    {
+      status:'good', score:93,
+      title:'Form: Excellent ✓',
+      desc:'Arms fully overhead — great rhythm and coordination',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Arm',v:172,j:4},{l:'Leg',v:48,j:10}]
+    },{
+      status:'warn', score:62,
+      title:'⚠ Raise Arms Higher',
+      desc:'Not reaching full overhead — reducing calorie burn',
+      fix:'FIX: Clap hands together at full arm extension overhead each rep',
+      icon:'⚠️',
+      angles:[{l:'Arm',v:138,j:4,bad:1}]
+    },
+  ],
+  benchpress: [
+    {
+      status:'good', score:90,
+      title:'Form: Excellent ✓',
+      desc:'Clean bar path — controlled descent to chest',
+      fix:'',
+      icon:'✅',
+      angles:[{l:'Elbow',v:90,j:4},{l:'Spine',v:175,j:1}]
+    },{
+      status:'warn', score:52,
+      title:'⚠ Widen Your Grip',
+      desc:'Grip too narrow — elbows flaring in past 90°',
+      fix:'FIX: Grip slightly wider than shoulder-width. Elbows should track at 45–75° from torso',
+      icon:'⚠️',
+      angles:[{l:'Elbow',v:122,j:4,bad:1}]
+    },{
+      status:'error', score:45,
+      title:'⚠ Pinch Shoulder Blades',
+      desc:'Shoulder blades not retracted — pec activation is poor',
+      fix:'FIX: Before unracking, pull shoulder blades together and down. Create a small arch in upper back only',
+      icon:'🚨',
+      angles:[{l:'Spine',v:156,j:1,bad:1}]
+    },
   ],
 };
 
-// ── Pose generator: 14 keypoints normalized 0-1 ──
-// 0=head 1=neck 2=lShoulder 3=rShoulder 4=lElbow 5=rElbow
-// 6=lWrist 7=rWrist 8=lHip 9=rHip 10=lKnee 11=rKnee 12=lAnkle 13=rAnkle
-function buildPose(exKey, t, sc) {
-  const s = Math.sin(t * Math.PI * 2);   // -1..1
-  const u = Math.abs(s);                  // 0..1 (movement amount)
-  const eb = (180 - (sc.e||90)) / 180;
-  const kb = (180 - (sc.k||180)) / 180;
-  const hb = (180 - (sc.h||180)) / 180;
-  const bb = (180 - (sc.b||180)) / 180;
-
-  const P = {
-    pushup: [
-      [0.50, 0.17],
-      [0.50, 0.25],
-      [0.42, 0.31 + u*0.07],
-      [0.58, 0.31 + u*0.07],
-      [0.34, 0.43 + eb*0.22],
-      [0.66, 0.43 + eb*0.22],
-      [0.28, 0.52],
-      [0.72, 0.52],
-      [0.45, 0.50 + u*0.05 + bb*0.08],
-      [0.55, 0.50 + u*0.05 + bb*0.08],
-      [0.44, 0.69],
-      [0.56, 0.69],
-      [0.43, 0.87],
-      [0.57, 0.87],
-    ],
-    squat: [
-      [0.50, 0.09],
-      [0.50, 0.17 + u*0.03],
-      [0.44, 0.25 + u*0.04 + bb*0.10],
-      [0.56, 0.25 + u*0.04 + bb*0.10],
-      [0.38, 0.39 + u*0.02],
-      [0.62, 0.39 + u*0.02],
-      [0.34, 0.50],
-      [0.66, 0.50],
-      [0.46, 0.44 + u*0.16],
-      [0.54, 0.44 + u*0.16],
-      [0.44, 0.44 + u*0.16 + 0.20 - u*kb*0.10],
-      [0.56, 0.44 + u*0.16 + 0.20 - u*kb*0.10],
-      [0.43, 0.87],
-      [0.57, 0.87],
-    ],
-    deadlift: [
-      [0.50, 0.09 + u*0.13],
-      [0.50, 0.19 + u*0.11],
-      [0.44, 0.27 + u*0.11 + bb*0.10],
-      [0.56, 0.27 + u*0.11 + bb*0.10],
-      [0.38, 0.47 + u*0.09],
-      [0.62, 0.47 + u*0.09],
-      [0.36, 0.63 + u*0.05],
-      [0.64, 0.63 + u*0.05],
-      [0.46, 0.56 + u*0.20],
-      [0.54, 0.56 + u*0.20],
-      [0.45, 0.76 + u*0.04],
-      [0.55, 0.76 + u*0.04],
-      [0.44, 0.88],
-      [0.56, 0.88],
-    ],
-    curl: [
-      [0.50, 0.09],
-      [0.50, 0.17],
-      [0.42, 0.27],
-      [0.58, 0.27],
-      [0.36, 0.43 - u*0.11],
-      [0.64, 0.43 - u*0.11],
-      [0.32 + u*0.09, 0.27 + (1-u)*0.18 + bb*0.08],
-      [0.68 - u*0.09, 0.27 + (1-u)*0.18 + bb*0.08],
-      [0.46, 0.53],
-      [0.54, 0.53],
-      [0.45, 0.71],
-      [0.55, 0.71],
-      [0.44, 0.88],
-      [0.56, 0.88],
-    ],
-    lunge: [
-      [0.48, 0.09],
-      [0.48, 0.18],
-      [0.42, 0.27],
-      [0.55, 0.27],
-      [0.38, 0.41],
-      [0.62, 0.41],
-      [0.34, 0.53],
-      [0.68, 0.53],
-      [0.46, 0.46 + u*0.09],
-      [0.55, 0.46 + u*0.09],
-      [0.42, 0.64 + u*0.07 - kb*0.07],
-      [0.65, 0.64 + u*0.09],
-      [0.38, 0.83],
-      [0.69, 0.88],
-    ],
-    plank: [
-      [0.22, 0.38],
-      [0.29, 0.40],
-      [0.33, 0.42 + bb*0.05],
-      [0.39, 0.42 + bb*0.05],
-      [0.37, 0.51],
-      [0.43, 0.51],
-      [0.37, 0.57],
-      [0.43, 0.57],
-      [0.59, 0.44 + hb*0.12],
-      [0.65, 0.44 + hb*0.12],
-      [0.71, 0.51],
-      [0.77, 0.51],
-      [0.79, 0.57],
-      [0.83, 0.57],
-    ],
-    press: [
-      [0.50, 0.09],
-      [0.50, 0.17],
-      [0.43, 0.26],
-      [0.57, 0.26],
-      [0.38, 0.38 - u*0.18],
-      [0.62, 0.38 - u*0.18],
-      [0.36, 0.20 - u*0.12 + bb*0.08],
-      [0.64, 0.20 - u*0.12 + bb*0.08],
-      [0.46, 0.52],
-      [0.54, 0.52],
-      [0.45, 0.71],
-      [0.55, 0.71],
-      [0.44, 0.88],
-      [0.56, 0.88],
-    ],
-    row: [
-      [0.50, 0.18 + u*0.05],
-      [0.50, 0.27 + u*0.05],
-      [0.43, 0.36 + u*0.05 + bb*0.08],
-      [0.57, 0.36 + u*0.05 + bb*0.08],
-      [0.37, 0.48 - u*0.10],
-      [0.63, 0.48 - u*0.10],
-      [0.30, 0.52 - u*0.08],
-      [0.70, 0.52 - u*0.08],
-      [0.46, 0.55],
-      [0.54, 0.55],
-      [0.45, 0.72],
-      [0.55, 0.72],
-      [0.44, 0.88],
-      [0.56, 0.88],
-    ],
+// ─────────────────────────────────────────────────────
+//  SKELETON POSE BUILDER  (14 keypoints)
+//  Keypoints: 0=head, 1=neck, 2=lShoulder, 3=rShoulder,
+//  4=lElbow, 5=rElbow, 6=lWrist, 7=rWrist,
+//  8=lHip, 9=rHip, 10=lKnee, 11=rKnee,
+//  12=lAnkle, 13=rAnkle
+// ─────────────────────────────────────────────────────
+function getPoseKpts(ex, t) {
+  // t = 0..1 cycle position
+  const u = (Math.sin(t * Math.PI * 2) + 1) / 2; // 0..1 up/down
+  const d = u; // shorthand
+  const builds = {
+    pushup:()=>{
+      const depth = d * .11;
+      return [[.50,.19],[.50,.28],[.40,.35+depth],[.60,.35+depth],
+              [.29,.49+depth*1.3],[.71,.49+depth*1.3],
+              [.22,.57],[.78,.57],
+              [.46,.55+depth*.5],[.54,.55+depth*.5],
+              [.45,.74],[.55,.74],[.43,.89],[.57,.89]];
+    },
+    squat:()=>{
+      const depth = d * .19; const hy = .44+depth;
+      return [[.50,.08],[.50,.17],[.42,.25],[.58,.25],
+              [.35,.39],[.65,.39],[.31,.51],[.69,.51],
+              [.46,hy],[.54,hy],
+              [.43,hy+.22-depth*.45],[.57,hy+.22-depth*.45],
+              [.42,.88],[.58,.88]];
+    },
+    deadlift:()=>{
+      const h = d * .23;
+      return [[.50,.07+h],[.50,.17+h*.9],[.43,.26+h*.8],[.57,.26+h*.8],
+              [.36,.43+h*.55],[.64,.43+h*.55],
+              [.33,.59+h*.25],[.67,.59+h*.25],
+              [.46,.50+h*.3],[.54,.50+h*.3],
+              [.44,.70],[.56,.70],[.43,.88],[.57,.88]];
+    },
+    curl:()=>{
+      const up = d;
+      return [[.50,.08],[.50,.17],[.40,.26],[.60,.26],
+              [.31,.42-up*.11],[.69,.42-up*.11],
+              [.27+up*.11,.29],[.73-up*.11,.29],
+              [.46,.51],[.54,.51],[.45,.70],[.55,.70],[.44,.88],[.56,.88]];
+    },
+    shoulderpress:()=>{
+      const up = d;
+      return [[.50,.08],[.50,.17],[.40,.26],[.60,.26],
+              [.33,.33-up*.03],[.67,.33-up*.03],
+              [.28,.17-up*.13],[.72,.17-up*.13],
+              [.46,.51],[.54,.51],[.45,.70],[.55,.70],[.44,.88],[.56,.88]];
+    },
+    lunge:()=>{
+      const step = d * .13;
+      return [[.48,.08],[.48,.17],[.40,.26],[.56,.26],
+              [.34,.39],[.62,.39],[.30,.51],[.68,.51],
+              [.44,.47+step],[.54,.47+step],
+              [.37,.65+step*.5],[.62,.60],
+              [.33,.83],[.65,.88]];
+    },
+    plank:()=>{
+      const sag = d * .035;
+      return [[.17,.36],[.23,.39],[.29,.41],[.35,.41],
+              [.33,.50],[.39,.50],[.31,.55],[.37,.55],
+              [.57,.41+sag],[.63,.41+sag],
+              [.71,.47],[.77,.47],[.79,.53],[.83,.53]];
+    },
+    jumpingjack:()=>{
+      const o = d;
+      return [[.50,.08],[.50,.17],
+              [.44-o*.09,.26],[.56+o*.09,.26],
+              [.29-o*.09,.21-o*.07],[.71+o*.09,.21-o*.07],
+              [.17-o*.06,.13-o*.09],[.83+o*.06,.13-o*.09],
+              [.46,.51],[.54,.51],
+              [.41-o*.09,.69],[.59+o*.09,.69],
+              [.37-o*.09,.87],[.63+o*.09,.87]];
+    },
+    benchpress:()=>{
+      const depth = d * .13;
+      return [[.50,.21],[.50,.29],[.40,.36],[.60,.36],
+              [.29,.49+depth],[.71,.49+depth],
+              [.21,.43],[.79,.43],
+              [.46,.55],[.54,.55],[.45,.72],[.55,.72],[.44,.88],[.56,.88]];
+    },
   };
-  return P[exKey] || P.pushup;
+  return (builds[ex] || builds.squat)();
 }
 
-const BONE_LINKS = [
-  [0,1],[1,2],[1,3],[2,4],[4,6],[3,5],[5,7],
-  [2,8],[3,9],[8,9],[8,10],[10,12],[9,11],[11,13]
-];
+const BONES = [[0,1],[1,2],[1,3],[2,4],[4,6],[3,5],[5,7],
+               [2,8],[3,9],[8,9],[8,10],[10,12],[9,11],[11,13]];
 
-// ── Canvas ──
-const canvas = document.getElementById('skeletonCanvas');
-const ctx    = canvas ? canvas.getContext('2d') : null;
+// ─────────────────────────────────────────────────────
+//  DRAW SKELETON
+// ─────────────────────────────────────────────────────
+function drawSkel(pts, formSc, W, H) {
+  if (!CTX) return;
+  CTX.clearRect(0, 0, W, H);
 
-function drawSkeleton(pts, sc, W, H) {
-  if (!ctx) return;
-  ctx.clearRect(0, 0, W, H);
+  const px = p => [p[0]*W, p[1]*H];
+  const st = formSc.status;
+  const mainCol = st==='error' ? '#FF3D3D' : st==='warn' ? '#FF8C32' : '#C8F135';
+  const glowCol = st==='error' ? 'rgba(255,50,50,.5)' : st==='warn' ? 'rgba(255,140,50,.4)' : 'rgba(200,241,53,.4)';
 
-  const col  = sc.status==='error' ? '#ff4444' : sc.status==='warn' ? '#ff8c42' : '#C8F135';
-  const glow = sc.status==='error' ? 'rgba(255,68,68,0.4)' : sc.status==='warn' ? 'rgba(255,140,66,0.35)' : 'rgba(200,241,53,0.35)';
-  const px   = p => [p[0]*W, p[1]*H];
-
-  // Bones
-  ctx.lineCap = 'round';
-  ctx.lineWidth = 3;
-  BONE_LINKS.forEach(([a,b]) => {
-    if (a >= pts.length || b >= pts.length) return;
-    const [ax,ay] = px(pts[a]), [bx,by] = px(pts[b]);
-    ctx.shadowColor = glow; ctx.shadowBlur = 10;
-    ctx.strokeStyle = col + 'bb';
-    ctx.beginPath(); ctx.moveTo(ax,ay); ctx.lineTo(bx,by); ctx.stroke();
+  // ── Glow pass ──
+  CTX.save();
+  CTX.globalAlpha = .18;
+  CTX.lineWidth = 14;
+  CTX.strokeStyle = mainCol;
+  CTX.shadowColor = mainCol;
+  CTX.shadowBlur = 20;
+  CTX.lineCap = 'round';
+  BONES.forEach(([a,b]) => {
+    if (a>=pts.length || b>=pts.length) return;
+    const [ax,ay]=px(pts[a]), [bx,by]=px(pts[b]);
+    CTX.beginPath(); CTX.moveTo(ax,ay); CTX.lineTo(bx,by); CTX.stroke();
   });
+  CTX.restore();
 
-  // Joints
-  ctx.shadowBlur = 14;
+  // ── Bones ──
+  CTX.lineCap = 'round';
+  CTX.shadowBlur = 7; CTX.shadowColor = glowCol;
+  BONES.forEach(([a,b]) => {
+    if (a>=pts.length || b>=pts.length) return;
+    const [ax,ay]=px(pts[a]), [bx,by]=px(pts[b]);
+    const isBad = formSc.angles && formSc.angles.some(ang => (ang.j===a || ang.j===b) && ang.bad);
+    CTX.lineWidth = 3.2;
+    CTX.strokeStyle = isBad
+      ? (st==='error' ? 'rgba(255,61,61,.95)' : 'rgba(255,140,50,.9)')
+      : mainCol + 'cc';
+    CTX.beginPath(); CTX.moveTo(ax,ay); CTX.lineTo(bx,by); CTX.stroke();
+  });
+  CTX.shadowBlur = 0;
+
+  // ── Joints ──
   pts.forEach((p, i) => {
     const [jx,jy] = px(p);
-    ctx.beginPath();
+    const isBadJ = formSc.angles && formSc.angles.some(a => a.j===i && a.bad);
+    const jc = isBadJ ? (st==='error' ? '#FF4545' : '#FF9C52') : mainCol;
+    CTX.beginPath();
+    CTX.shadowColor = jc; CTX.shadowBlur = 12;
     if (i === 0) {
-      // head ring
-      ctx.arc(jx, jy, 13, 0, Math.PI*2);
-      ctx.strokeStyle = col; ctx.lineWidth = 2.5; ctx.stroke();
-      // inner fill
-      ctx.beginPath(); ctx.arc(jx, jy, 8, 0, Math.PI*2);
-      ctx.fillStyle = col + '33'; ctx.fill();
+      // Head
+      CTX.arc(jx, jy, 14, 0, Math.PI*2);
+      CTX.strokeStyle = jc; CTX.lineWidth = 2.5; CTX.stroke();
     } else {
-      ctx.arc(jx, jy, i < 2 ? 6 : 5, 0, Math.PI*2);
-      ctx.fillStyle = col + 'dd'; ctx.shadowColor = glow; ctx.fill();
+      CTX.arc(jx, jy, i < 2 ? 6 : 5, 0, Math.PI*2);
+      CTX.fillStyle = jc + 'ee'; CTX.fill();
+    }
+    CTX.shadowBlur = 0;
+
+    // ── Angle arc on key joints ──
+    if (formSc.angles) {
+      const ang = formSc.angles.find(a => a.j === i);
+      if (ang) {
+        CTX.beginPath();
+        CTX.arc(jx, jy, 18, -Math.PI*.85, Math.PI*.2);
+        CTX.setLineDash([3,3]);
+        CTX.strokeStyle = (ang.bad ? jc : mainCol) + '66';
+        CTX.lineWidth = 1.8; CTX.stroke();
+        CTX.setLineDash([]);
+      }
     }
   });
-  ctx.shadowBlur = 0;
 
-  // Angle arc on key joints
-  drawArc(pts, 4,  2,  6,  W, H, col, sc.e + '°');  // elbow
-  drawArc(pts, 10, 8,  12, W, H, col, sc.k + '°');  // knee
-  if (['squat','deadlift','lunge','row'].includes(currentExercise)) {
-    drawArc(pts, 8, 1, 10, W, H, col, sc.h + '°');  // hip
+  // ── Angle bubble DOM elements ──
+  if (formSc.angles) {
+    formSc.angles.forEach((ang, ai) => {
+      if (ang.j >= pts.length) return;
+      const el = document.getElementById('angB'+ai);
+      if (!el) return;
+      const jc = ang.bad ? (st==='error' ? '#FF5555' : '#FF9C52') : mainCol;
+      const pct_x = Math.min(88, pts[ang.j][0]*100 - 3);
+      const pct_y = Math.max(6, pts[ang.j][1]*100 - 9);
+      el.style.display = 'block';
+      el.style.left  = pct_x + '%';
+      el.style.top   = pct_y + '%';
+      el.style.color = jc;
+      el.style.borderColor = jc + '55';
+      el.textContent = ang.l === 'Spine' || ang.l === 'Back' ? 'spine' : ang.v + '°';
+    });
+    for (let bi = formSc.angles.length; bi < 4; bi++) {
+      const el = document.getElementById('angB'+bi);
+      if (el) el.style.display = 'none';
+    }
   }
 }
 
-function drawArc(pts, mid, from, to, W, H, col, label) {
-  if (mid >= pts.length || from >= pts.length || to >= pts.length) return;
-  const [mx,my] = [pts[mid][0]*W, pts[mid][1]*H];
-  const [fx,fy] = [pts[from][0]*W, pts[from][1]*H];
-  const [tx,ty] = [pts[to][0]*W,   pts[to][1]*H];
-  const a1 = Math.atan2(fy-my, fx-mx);
-  const a2 = Math.atan2(ty-my, tx-mx);
-  ctx.beginPath();
-  ctx.arc(mx, my, 16, a1, a2, false);
-  ctx.strokeStyle = col + '55'; ctx.lineWidth = 1.5;
-  ctx.setLineDash([4,3]); ctx.stroke(); ctx.setLineDash([]);
+// ─────────────────────────────────────────────────────
+//  DETECTION SCAN ANIMATION
+// ─────────────────────────────────────────────────────
+function drawDetectScan(W, H, prog, frame) {
+  if (!CTX) return;
+  CTX.clearRect(0, 0, W, H);
+  const phase = (frame % 80) / 80;
+  const pts = getPoseKpts('squat', phase * .25);
 
-  // Label near joint
-  ctx.font = 'bold 10px Syne, sans-serif';
-  ctx.fillStyle = col;
-  ctx.fillText(label, mx + 18, my - 4);
-}
-
-// ── Angle bubbles ──
-function updateBubbles(pts, sc, W, H) {
-  const defs = [
-    { id:'ab-0', pt:4,  label: sc.e + '°', bad: sc.e > 120 || sc.e < 30  },
-    { id:'ab-1', pt:10, label: sc.k + '°', bad: sc.k > 130 || sc.k < 70  },
-    { id:'ab-2', pt:8,  label: sc.h + '°', bad: sc.h < 130               },
-    { id:'ab-3', pt:1,  label: sc.b + '°', bad: sc.b < 160               },
-  ];
-  defs.forEach(d => {
-    const el = document.getElementById(d.id);
-    if (!el || d.pt >= pts.length) return;
-    const [nx, ny] = pts[d.pt];
-    el.style.display = 'block';
-    el.style.left = Math.min(Math.max(nx*100, 5), 88) + '%';
-    el.style.top  = Math.min(Math.max(ny*100 - 7, 10), 82) + '%';
-    const c = d.bad ? (sc.status==='error' ? '#ff6060' : '#ffaa52') : '#C8F135';
-    el.style.color = c; el.style.borderColor = c + '88';
-    el.textContent = d.label;
+  // Faint ghost skeleton
+  CTX.globalAlpha = .1 + (prog/100) * .35;
+  CTX.lineWidth = 2; CTX.strokeStyle = '#C8F135'; CTX.lineCap = 'round';
+  CTX.shadowColor = '#C8F135'; CTX.shadowBlur = 6;
+  BONES.forEach(([a,b]) => {
+    if (a>=pts.length || b>=pts.length) return;
+    CTX.beginPath();
+    CTX.moveTo(pts[a][0]*W, pts[a][1]*H);
+    CTX.lineTo(pts[b][0]*W, pts[b][1]*H);
+    CTX.stroke();
   });
+  CTX.globalAlpha = 1; CTX.shadowBlur = 0;
+
+  // Spinning scan ring
+  const cx = W*.5, cy = H*.44, r = 65 + prog*.28;
+  const sweep = (prog/100) * Math.PI * 4.5;
+  CTX.beginPath();
+  CTX.arc(cx, cy, r, sweep - Math.PI*.6, sweep + Math.PI*1.4);
+  CTX.strokeStyle = `rgba(200,241,53,${.15 + prog/220})`;
+  CTX.lineWidth = 2.2; CTX.setLineDash([7,4]); CTX.stroke(); CTX.setLineDash([]);
+
+  // Joint discovery dots
+  const dotsTo = Math.floor(prog / 7.5);
+  for (let d = 0; d < dotsTo && d < pts.length; d++) {
+    CTX.beginPath();
+    CTX.arc(pts[d][0]*W, pts[d][1]*H, 5.5, 0, Math.PI*2);
+    CTX.fillStyle = '#C8F135';
+    CTX.shadowColor = '#C8F135'; CTX.shadowBlur = 14; CTX.fill(); CTX.shadowBlur = 0;
+  }
+
+  // Progress bar at bottom of scan
+  const barW = (prog/100) * W * .6;
+  CTX.fillStyle = 'rgba(200,241,53,.15)';
+  CTX.fillRect(W*.2, H*.88, W*.6, 3);
+  CTX.fillStyle = '#C8F135';
+  CTX.fillRect(W*.2, H*.88, barW, 3);
 }
 
-// ── Form status panel ──
-function applyFormStatus(sc) {
-  const pill   = document.getElementById('formStatusPill');
-  const titleEl= document.getElementById('formStatusTitle');
-  const subEl  = document.getElementById('formStatusSub');
-  const arc    = document.getElementById('scoreArc');
-  const scoreT = document.getElementById('scoreText');
-  const flash  = document.getElementById('errorFlash');
-  const fsPct  = document.getElementById('formScore');
+// ─────────────────────────────────────────────────────
+//  POSTURE TIP POPUP — appears mid-screen on error/warn
+// ─────────────────────────────────────────────────────
+let tipVisible = false;
+let tipHideTimer = null;
+function showPostureTip(formSc) {
+  const tip  = document.getElementById('postureTip');
+  const icon = document.getElementById('ptIcon');
+  const head = document.getElementById('ptHead');
+  const desc = document.getElementById('ptDesc');
+  const fix  = document.getElementById('ptFix');
+  if (!tip) return;
 
+  icon.textContent = formSc.icon || (formSc.status==='good' ? '✅' : formSc.status==='warn' ? '⚠️' : '🚨');
+  head.textContent = formSc.title;
+  desc.textContent = formSc.desc;
+  fix.textContent  = formSc.fix || '';
+  tip.className = 'posture-tip ' + formSc.status;
+
+  if (tipHideTimer) clearTimeout(tipHideTimer);
+  tipVisible = true;
+  tipHideTimer = setTimeout(() => {
+    tip.classList.add('hidden');
+    tipVisible = false;
+  }, formSc.status === 'good' ? 2500 : 5000);
+}
+
+// ─────────────────────────────────────────────────────
+//  FORM STATUS BAR
+// ─────────────────────────────────────────────────────
+function updateFormBar(formSc) {
+  const pill   = document.getElementById('formPill');
+  const title  = document.getElementById('fpTitle');
+  const sub    = document.getElementById('fpSub');
+  const arc    = document.getElementById('sArc');
+  const score  = document.getElementById('sScore');
+  const stForm = document.getElementById('stForm');
+  const flash  = document.getElementById('camFlash');
   if (!pill) return;
-  pill.className = 'form-status-pill ' + sc.status;
-  if (titleEl) titleEl.textContent = sc.title;
-  if (subEl)   subEl.textContent   = sc.sub;
 
-  const circ = 94.2, off = circ - circ * sc.score / 100;
-  if (arc) {
-    arc.setAttribute('stroke-dashoffset', off);
-    arc.setAttribute('stroke', sc.status==='error' ? '#ff4444' : sc.status==='warn' ? '#ff8c42' : '#00d278');
+  pill.className = 'form-pill ' + formSc.status;
+  title.textContent = formSc.title;
+  sub.textContent   = formSc.desc;
+
+  const sc  = formSc.score;
+  const off = 100.5 - 100.5 * sc / 100;
+  arc.setAttribute('stroke-dashoffset', off);
+  arc.setAttribute('stroke', formSc.status==='error' ? '#FF3D3D' : formSc.status==='warn' ? '#FF8C32' : '#00d278');
+  score.textContent = sc;
+  if (stForm) {
+    stForm.textContent = sc + '%';
+    stForm.style.color = formSc.status==='error' ? '#ff6060' : formSc.status==='warn' ? '#FF9C52' : '#C8F135';
   }
-  if (scoreT) scoreT.textContent = sc.score;
-  if (fsPct) {
-    fsPct.textContent = sc.score + '%';
-    fsPct.style.color = sc.status==='error' ? '#ff6060' : sc.status==='warn' ? '#ff8c42' : '#C8F135';
-  }
-  if (sc.status==='error' && flash) {
-    flash.classList.add('active');
-    setTimeout(() => flash.classList.remove('active'), 280);
+  if (formSc.status === 'error') {
+    flash.classList.add('on');
+    setTimeout(() => flash.classList.remove('on'), 300);
   }
 }
 
-// ── Detection banner ──
-function showDetectionBanner(text, opacity) {
-  const b = document.getElementById('detectBanner');
-  const l = document.getElementById('detectLabel');
-  if (b) b.style.opacity = opacity;
-  if (l) l.textContent = text;
-}
-
-// ── Exercise name display ──
-function showExerciseName(key, conf) {
-  const d = ALL_EXERCISES[key];
-  if (!d) return;
-  const nameEl = document.getElementById('exNameDisplay');
-  const badgeEl= document.getElementById('exConfBadge');
-  const muscleEl= document.getElementById('muscleGroup');
-  if (nameEl)  nameEl.textContent = d.emoji + ' ' + d.name;
-  if (badgeEl) { badgeEl.textContent = conf + '% match'; badgeEl.style.display = 'inline-block'; }
-  if (muscleEl) muscleEl.textContent = d.muscle;
-}
-
-// ── Feedback log ──
-const FEEDBACK = {
+// ─────────────────────────────────────────────────────
+//  FEEDBACK FEED
+// ─────────────────────────────────────────────────────
+let lastFbSt = '';
+const FBMSGS = {
   good:  [
-    { icon:'✅', text:'Excellent form — perfect range of motion!',      col:'#00e890' },
-    { icon:'💪', text:'Flawless technique — keep going!',               col:'#00e890' },
-    { icon:'✅', text:'Great tempo — controlled and powerful',           col:'#00e890' },
-    { icon:'🔥', text:'Strong set! Muscle engagement is optimal',        col:'#C8F135' },
+    {t:'Great rep — perfect form!', d:'Full range of motion, well controlled', c:'#00e890'},
+    {t:'Excellent technique ✓',     d:'Keep that tempo — smooth and controlled', c:'#00e890'},
+    {t:'Perfect alignment!',        d:'Joints are stacked correctly, great work', c:'#00e890'},
   ],
   warn:  [
-    { icon:'⚠️', text:'Core needs bracing — breathe and tighten',       col:'#ff9c52' },
-    { icon:'⚠️', text:'Slow down the eccentric — control the weight',   col:'#ff9c52' },
-    { icon:'⚠️', text:'Watch joint alignment — small fix needed',        col:'#ff9c52' },
-    { icon:'⚠️', text:'Almost perfect! Adjust your positioning',         col:'#ff9c52' },
+    {t:'Form breaking down',        d:'Slow down and focus on position before next rep', c:'#FF9C52'},
+    {t:'Check your alignment',      d:'Small adjustments now prevent injury later', c:'#FF9C52'},
+    {t:'Technique reminder',        d:'Quality over quantity — take your time', c:'#FF9C52'},
   ],
   error: [
-    { icon:'🚨', text:'STOP — dangerous position detected! Reset now',  col:'#ff5555' },
-    { icon:'🚨', text:'Critical form break — lower the weight, reset',  col:'#ff5555' },
+    {t:'STOP — Fix form now!',      d:'High injury risk. Rest 10s, reset your position', c:'#ff6060'},
+    {t:'Dangerous position!',       d:'Drop weight if needed. Form always comes first', c:'#ff6060'},
   ],
 };
 
-function addFeedbackEntry(status, time) {
-  const log = document.getElementById('feedbackLog');
-  if (!log) return;
-  const msgs = FEEDBACK[status] || FEEDBACK.good;
+function pushFeedback(formSc, timeStr) {
+  if (formSc.status === lastFbSt) return;
+  lastFbSt = formSc.status;
+  const feed = document.getElementById('fbFeed');
+  if (!feed) return;
+  const msgs = FBMSGS[formSc.status] || FBMSGS.good;
   const msg  = msgs[Math.floor(Math.random() * msgs.length)];
-  const m = Math.floor(time/60), s = String(time%60).padStart(2,'0');
-  const div = document.createElement('div');
-  div.className = 'feedback-entry';
-  div.innerHTML = `<span class="fb-icon">${msg.icon}</span><span style="color:${msg.col};flex:1;font-size:12px">${msg.text}</span><span class="fb-time">${m}:${s}</span>`;
-  log.insertBefore(div, log.firstChild);
-  while (log.children.length > 4) log.removeChild(log.lastChild);
+  const icon = formSc.status==='good' ? '✅' : formSc.status==='warn' ? '⚠️' : '🚨';
+  const el   = document.createElement('div');
+  el.className = 'fb-row';
+  el.innerHTML = `
+    <span class="fb-row-icon">${icon}</span>
+    <div class="fb-row-body">
+      <div class="fb-row-title" style="color:${msg.c}">${msg.t}</div>
+      <div class="fb-row-desc">${formSc.fix || msg.d}</div>
+    </div>
+    <span class="fb-row-time">${timeStr}</span>`;
+  feed.insertBefore(el, feed.firstChild);
+  while (feed.children.length > 5) feed.removeChild(feed.lastChild);
 }
 
-// ── State ──
-let currentExercise  = null;
-let detectionPhase   = true;
-let detectionTimer   = 0;
-const DET_FRAMES     = 140;   // ~2.3s
-let repCount         = 0;
-let setCount         = 1;
-let totalReps        = 0;
-let elapsedSec       = 0;
-let calories         = 0;
-let paused           = false;
-let animFrame        = null;
-let scenarioIdx      = 0;
-let scTimer          = 0;
-const SC_INTERVAL    = 290;
-let repPhase         = 0;
-let frameCount       = 0;
-let repsSinceSwitch  = 0;
-const AUTO_SWITCH_AT = 20;   // switch exercise after this many reps
-let exDetectIndex    = 0;
-let lastLogStatus    = '';
-let timerInterval    = null;
+function pushInfo(icon, title, desc, color, timeStr) {
+  const feed = document.getElementById('fbFeed');
+  if (!feed) return;
+  const el = document.createElement('div');
+  el.className = 'fb-row';
+  el.innerHTML = `
+    <span class="fb-row-icon">${icon}</span>
+    <div class="fb-row-body">
+      <div class="fb-row-title" style="color:${color}">${title}</div>
+      <div class="fb-row-desc">${desc}</div>
+    </div>
+    <span class="fb-row-time">${timeStr}</span>`;
+  feed.insertBefore(el, feed.firstChild);
+  while (feed.children.length > 5) feed.removeChild(feed.lastChild);
+}
 
-// ── Timer ──
-function startTimer() {
-  if (timerInterval) return;
-  timerInterval = setInterval(() => {
-    if (!paused) {
-      elapsedSec++;
-      const m = Math.floor(elapsedSec/60), s = String(elapsedSec%60).padStart(2,'0');
-      const el = document.getElementById('timerDisplay');
-      if (el) el.textContent = m + ':' + s;
+// ─────────────────────────────────────────────────────
+//  STATE
+// ─────────────────────────────────────────────────────
+const DETECT_ORDER = Object.keys(EXDB);
+let _dIdx = 0;
+
+let camActive   = false;
+let camPaused2  = false;
+let camRAF3     = null;
+let camFrame3   = 0;
+let camSec3     = 0;
+let camTimerID  = null;
+
+let detecting   = false;
+let detProg     = 0;
+let exKey       = null;   // current detected exercise
+
+let formIdx     = 0;      // index into FORMS[exKey]
+let formTimer   = 0;
+const FORM_DUR  = 230;    // frames per form scenario
+
+let phase3      = 0;      // 0..1 rep cycle
+let repCount3   = 0;      // reps this set
+let setCount3   = 1;
+let totalReps3  = 0;
+let kcal3       = 0;
+let vol3        = 0;
+
+let lastFormSc  = null;
+let tipShownFor = null;   // track when to re-show tip
+
+function timeStr3() {
+  const m = Math.floor(camSec3/60), s = camSec3%60;
+  return m + ':' + String(s).padStart(2,'0');
+}
+
+// ─────────────────────────────────────────────────────
+//  MAIN LOOP
+// ─────────────────────────────────────────────────────
+function camLoop3() {
+  if (!CAM || !CTX) { camRAF3 = requestAnimationFrame(camLoop3); return; }
+  const scr = document.getElementById('s-camera');
+  if (!scr || !scr.classList.contains('active')) { camRAF3 = requestAnimationFrame(camLoop3); return; }
+  if (camPaused2) { camRAF3 = requestAnimationFrame(camLoop3); return; }
+
+  const vp = document.querySelector('.cam-vp');
+  if (!vp) { camRAF3 = requestAnimationFrame(camLoop3); return; }
+  const W = vp.offsetWidth, H = vp.offsetHeight;
+  CAM.width = W; CAM.height = H;
+  camFrame3++;
+
+  // ── PHASE 1: DETECTION ──
+  if (!exKey) {
+    if (!detecting) {
+      detecting = true; detProg = 0;
+      setDetBanner('Scanning movement…', false);
+      setExBar('—', '', 'AI reading your movement patterns…');
+    }
+    detProg += 1.6;
+    drawDetectScan(W, H, detProg, camFrame3);
+    if (detProg >= 100) {
+      // ── DETECTED ──
+      exKey = DETECT_ORDER[_dIdx % DETECT_ORDER.length]; _dIdx++;
+      detecting = false;
+      repCount3 = 0; formIdx = 0; formTimer = 0; phase3 = 0; lastFbSt = '';
+      const ex = EXDB[exKey];
+      const ts = timeStr3();
+      setDetBanner('✓ Detected: ' + ex.name, true);
+      setExBar(ex.icon + ' ' + ex.name, ex.conf + '% match', ex.muscle);
+      pushInfo('🎯', 'Exercise Detected: ' + ex.name,
+        `Tracking ${ex.muscle}`, '#C8F135', ts);
+      showPostureTip({ status:'good', title:'Starting: '+ex.name, desc:ex.muscle,
+        fix:'AI is now counting your reps and monitoring your form', icon:'🎯' });
+      setTimeout(() => {
+        const b = document.getElementById('detBanner');
+        if (b) b.style.opacity = '0';
+      }, 2400);
+    }
+    camRAF3 = requestAnimationFrame(camLoop3); return;
+  }
+
+  // ── PHASE 2: TRACKING ──
+  const ex    = EXDB[exKey];
+  const forms = FORMS[exKey] || FORMS.pushup;
+
+  // Cycle form scenarios
+  formTimer++;
+  if (formTimer >= FORM_DUR) {
+    formTimer = 0;
+    const prevSc = forms[formIdx];
+    formIdx = (formIdx + 1) % forms.length;
+    const nextSc = forms[formIdx];
+    // Show tip whenever status changes or it's an error/warn
+    if (nextSc.status !== prevSc.status || nextSc.status !== 'good') {
+      tipShownFor = formIdx;
+      showPostureTip(nextSc);
+    }
+  }
+
+  const formSc = forms[formIdx];
+
+  // Rep phase (speed from ex.spd — frames per rep cycle)
+  const repSpd = ex.spd || 60;
+  phase3 = (phase3 + 1/repSpd) % 1;
+  // Count rep at phase crossover
+  if (phase3 < (1/repSpd) && camFrame3 > 30) {
+    repCount3++; totalReps3++;
+    kcal3  = +(totalReps3 * (ex.kcal || .5)).toFixed(1);
+    vol3   = totalReps3 * (ex.wt || 0);
+
+    // Update HUD reps with pop
+    const rc = document.getElementById('hReps');
+    if (rc) { rc.textContent = repCount3; rc.style.transform='scale(1.55)'; rc.style.color='#fff';
+      setTimeout(()=>{ rc.style.transform='scale(1)'; rc.style.color='#C8F135'; rc.style.transition='transform .2s,color .3s'; }, 200); }
+
+    // Update stats strip
+    const sr = document.getElementById('stReps'); if (sr) sr.textContent = totalReps3;
+    const sk = document.getElementById('stKcal'); if (sk) sk.textContent = kcal3;
+    const sv = document.getElementById('stVol');  if (sv) sv.textContent = vol3>999?(vol3/1000).toFixed(1)+'k':vol3;
+
+    // Every 12 reps = new set → re-detect next exercise
+    if (repCount3 >= 12) {
+      setCount3 = Math.min(setCount3 + 1, 4);
+      const sc2 = document.getElementById('hSets'); if (sc2) sc2.textContent = setCount3+'/4';
+      const ss  = document.getElementById('stSets'); if (ss) ss.textContent = setCount3;
+      pushInfo('🔔', 'Set ' + setCount3 + ' Complete!',
+        `${repCount3} reps · Rest 60s · AI will re-detect next exercise`, '#4E9EFF', timeStr3());
+      showPostureTip({status:'good', icon:'🎉', title:'Set '+setCount3+' done! Rest now',
+        desc:'Great work on ' + ex.name + ' · ' + repCount3 + ' reps completed',
+        fix:'Rest 60 seconds then get into position for next exercise'});
+
+      // Reset for next exercise detection
+      exKey = null; detecting = false; detProg = 0; lastFbSt = '';
+      const b = document.getElementById('detBanner');
+      if (b) { b.style.display='flex'; b.style.opacity='1'; b.style.background='rgba(200,241,53,.13)'; b.style.borderColor='rgba(200,241,53,.4)'; }
+    }
+  }
+
+  // Draw skeleton
+  const pts = getPoseKpts(exKey, phase3);
+  drawSkel(pts, formSc, W, H);
+
+  // Update UI
+  updateFormBar(formSc);
+  pushFeedback(formSc, timeStr3());
+
+  camRAF3 = requestAnimationFrame(camLoop3);
+}
+
+// ─────────────────────────────────────────────────────
+//  UI HELPERS
+// ─────────────────────────────────────────────────────
+function setDetBanner(msg, found) {
+  const lbl = document.getElementById('detLabel');
+  const b   = document.getElementById('detBanner');
+  if (lbl) lbl.textContent = msg;
+  if (b && found) { b.style.background='rgba(200,241,53,.22)'; b.style.borderColor='rgba(200,241,53,.7)'; }
+}
+function setExBar(name, conf, sub) {
+  const nm = document.getElementById('exNameEl');
+  const cf = document.getElementById('exConfEl');
+  const sb = document.getElementById('exSubEl');
+  if (nm) nm.textContent = name;
+  if (cf) { if (conf) { cf.textContent = conf; cf.style.display='inline-block'; } else cf.style.display='none'; }
+  if (sb) sb.textContent = sub;
+}
+function toggleCamPause() {
+  camPaused2 = !camPaused2;
+  const btn = document.getElementById('pauseBtn2');
+  if (btn) btn.textContent = camPaused2 ? '▶' : '⏸';
+}
+
+// ─────────────────────────────────────────────────────
+//  TIMER
+// ─────────────────────────────────────────────────────
+function startCam3Timer() {
+  if (camTimerID) return;
+  camTimerID = setInterval(() => {
+    if (!camPaused2) {
+      camSec3++;
+      const el = document.getElementById('hTime');
+      if (el) el.textContent = Math.floor(camSec3/60)+':'+String(camSec3%60).padStart(2,'0');
     }
   }, 1000);
 }
 
-// ── Rep pop animation ──
-const popStyle = document.createElement('style');
-popStyle.textContent = `
-  @keyframes repPop { 0%{transform:scale(1.5);color:#fff} 100%{transform:scale(1)} }
-  @keyframes exDetectPop { 0%{opacity:0;transform:scale(0.8)} 60%{transform:scale(1.05)} 100%{opacity:1;transform:scale(1)} }
-  #exNameDisplay { animation: none; }
-  #exNameDisplay.popped { animation: exDetectPop 0.5s ease forwards; }
-`;
-document.head.appendChild(popStyle);
-
-function triggerRepPop() {
-  const rc = document.getElementById('repCounter');
-  if (!rc) return;
-  rc.textContent = repCount;
-  rc.style.animation = 'none';
-  void rc.offsetWidth;
-  rc.style.animation = 'repPop 0.3s ease';
-}
-
-// ── Trigger detection (called when entering camera screen) ──
-function startDetection() {
-  currentExercise = null;
-  detectionPhase  = true;
-  detectionTimer  = 0;
-  repCount = 0; repPhase = 0; repsSinceSwitch = 0;
-  showDetectionBanner('Scanning movement pattern…', 1);
-
-  const nameEl = document.getElementById('exNameDisplay');
-  const badgeEl= document.getElementById('exConfBadge');
-  if (nameEl)  nameEl.textContent = 'Detecting…';
-  if (badgeEl) badgeEl.style.display = 'none';
-
-  // Hide angle bubbles
-  ['ab-0','ab-1','ab-2','ab-3'].forEach(id => {
-    const el = document.getElementById(id);
-    if (el) el.style.display = 'none';
-  });
-}
-
-// ── Switch to next exercise in the auto-detect sequence ──
-function autoDetectNextExercise() {
-  exDetectIndex = (exDetectIndex + 1) % DETECT_ORDER.length;
-  currentExercise = DETECT_ORDER[exDetectIndex];
-  const conf = 91 + Math.floor(Math.random() * 8);
-  showExerciseName(currentExercise, conf);
-
-  // Animate name
-  const nameEl = document.getElementById('exNameDisplay');
-  if (nameEl) {
-    nameEl.classList.remove('popped');
-    void nameEl.offsetWidth;
-    nameEl.classList.add('popped');
-  }
-
-  // Log detection
-  const d = ALL_EXERCISES[currentExercise];
-  addFeedbackEntry('good', elapsedSec);
-  const log = document.getElementById('feedbackLog');
-  if (log) {
-    const m = Math.floor(elapsedSec/60), s = String(elapsedSec%60).padStart(2,'0');
-    const div = document.createElement('div');
-    div.className = 'feedback-entry';
-    div.style.opacity = '1';
-    div.innerHTML = `<span class="fb-icon">🎯</span><span style="color:#C8F135;flex:1;font-size:12px">AI detected: <strong>${d.name}</strong> — tracking started</span><span class="fb-time">${m}:${s}</span>`;
-    log.insertBefore(div, log.firstChild);
-    while (log.children.length > 4) log.removeChild(log.lastChild);
-  }
-
-  repCount = 0; repPhase = 0; repsSinceSwitch = 0;
-  scenarioIdx = 0; scTimer = 0; lastLogStatus = '';
-
-  const rc = document.getElementById('repCounter');
-  if (rc) rc.textContent = '0';
-}
-
-// ── Main animation loop ──
-function animate() {
-  if (!canvas || !ctx) { animFrame = requestAnimationFrame(animate); return; }
-  const vp = document.querySelector('.cam-viewport');
-  if (!vp)              { animFrame = requestAnimationFrame(animate); return; }
-
-  const W = vp.offsetWidth, H = vp.offsetHeight;
-  canvas.width = W; canvas.height = H;
-
-  const screenActive = document.getElementById('s-camera').classList.contains('active');
-  if (!paused && screenActive) {
-    frameCount++;
-
-    // ── PHASE 1: Detection ──
-    if (detectionPhase) {
-      detectionTimer++;
-      const pct = detectionTimer / DET_FRAMES;
-
-      // Animate a "scanning" skeleton (neutral stand pose)
-      const scanPts = buildPose('squat', frameCount/120, { score:90, status:'good', e:160, k:178, h:178, b:180 });
-      const scanSc  = { status:'good', e:160, k:178, h:178, b:180, score:90 };
-      drawSkeleton(scanPts, scanSc, W, H);
-
-      // Scanning banner pulses
-      const labels = ['Scanning movement pattern…','Analyzing joint positions…','Classifying exercise type…','Confirming detection…'];
-      const lIdx = Math.floor(pct * labels.length);
-      showDetectionBanner(labels[Math.min(lIdx, labels.length-1)], 1);
-
-      // Fake form status
-      const titleEl = document.getElementById('formStatusTitle');
-      const subEl   = document.getElementById('formStatusSub');
-      if (titleEl) titleEl.textContent = 'AI scanning…';
-      if (subEl)   subEl.textContent   = 'Stand in frame — full body visible';
-
-      if (detectionTimer >= DET_FRAMES) {
-        detectionPhase = false;
-        currentExercise = DETECT_ORDER[exDetectIndex];
-        const conf = 91 + Math.floor(Math.random() * 8);
-        showExerciseName(currentExercise, conf);
-        showDetectionBanner('', 0);
-      }
-
-    // ── PHASE 2: Live Tracking ──
-    } else {
-      const ex = ALL_EXERCISES[currentExercise] || ALL_EXERCISES.pushup;
-      const forms = FORM_DATA[currentExercise] || FORM_DATA.pushup;
-
-      // Rotate form scenario
-      scTimer++;
-      if (scTimer >= SC_INTERVAL) {
-        scTimer = 0;
-        scenarioIdx = (scenarioIdx + 1) % forms.length;
-      }
-      const sc = forms[scenarioIdx];
-
-      // Rep cycle speed based on exercise
-      const speed = ex.speed > 0 ? ex.speed : 80;
-      repPhase = (repPhase + 1 / speed) % 1;
-
-      // Count rep on cycle completion
-      if (Math.floor(repPhase * speed) === 0 && frameCount > 20) {
-        repCount++;
-        totalReps++;
-        repsSinceSwitch++;
-        calories = Math.round(totalReps * (ex.calPerRep || 0.5));
-
-        triggerRepPop();
-
-        const calEl = document.getElementById('calStat');
-        const trEl  = document.getElementById('totalRepsDisplay');
-        const scEl  = document.getElementById('setCounter');
-        if (calEl) calEl.textContent = calories;
-        if (trEl)  trEl.textContent  = totalReps;
-
-        // Set increment every 12 reps
-        if (repCount > 0 && repCount % 12 === 0) {
-          setCount = Math.min(setCount + 1, 9);
-          if (scEl) scEl.textContent = setCount + '/∞';
-        }
-
-        // Auto-switch exercise after AUTO_SWITCH_AT reps
-        if (repsSinceSwitch >= AUTO_SWITCH_AT) {
-          detectionPhase = true;
-          detectionTimer = 0;
-          showDetectionBanner('Movement changed — re-scanning…', 1);
-          setTimeout(() => {
-            detectionPhase = false;
-            autoDetectNextExercise();
-          }, 2200);
-        }
-      }
-
-      // Draw
-      const pts = buildPose(currentExercise, repPhase, sc);
-      drawSkeleton(pts, sc, W, H);
-      updateBubbles(pts, sc, W, H);
-      applyFormStatus(sc);
-
-      // Feedback log on status change
-      if (sc.status !== lastLogStatus) {
-        lastLogStatus = sc.status;
-        addFeedbackEntry(sc.status, elapsedSec);
-      }
-    }
-  }
-
-  animFrame = requestAnimationFrame(animate);
-}
-
-function togglePause() {
-  paused = !paused;
-  const btn = document.getElementById('pauseBtn');
-  if (btn) btn.textContent = paused ? '▶' : '⏸';
-}
-
-// ── Start when camera screen activates ──
-const camObserver = new MutationObserver(() => {
-  const cam = document.getElementById('s-camera');
-  if (cam && cam.classList.contains('active')) {
-    startTimer();
-    startDetection();
-    if (!animFrame) animFrame = requestAnimationFrame(animate);
+// ─────────────────────────────────────────────────────
+//  OBSERVER — starts engine when screen activates
+// ─────────────────────────────────────────────────────
+const _camObs = new MutationObserver(() => {
+  const s = document.getElementById('s-camera');
+  if (s && s.classList.contains('active')) {
+    startCam3Timer();
+    if (!camRAF3) camRAF3 = requestAnimationFrame(camLoop3);
   }
 });
-const camScreen = document.getElementById('s-camera');
-if (camScreen) camObserver.observe(camScreen, { attributes: true, attributeFilter: ['class'] });
-if (camScreen && camScreen.classList.contains('active')) {
-  startTimer(); startDetection();
-  animFrame = requestAnimationFrame(animate);
+const _camScr = document.getElementById('s-camera');
+if (_camScr) _camObs.observe(_camScr, { attributes:true, attributeFilter:['class'] });
+if (_camScr && _camScr.classList.contains('active')) {
+  startCam3Timer(); camRAF3 = requestAnimationFrame(camLoop3);
 }
+
+// ── Diet Customization ──
+function dietOpt(el, group) {
+  el.closest('[id$="Opts"]').querySelectorAll('.diet-opt').forEach(b => b.classList.remove('selected'));
+  el.classList.add('selected');
+}
+function dietOptMulti(el) { el.classList.toggle('selected'); }
+function dietToggle(id) {
+  const tog  = document.getElementById('tog-' + id);
+  const knob = tog.querySelector('.diet-toggle-knob');
+  const isOn = knob.style.transform === 'translateX(20px)';
+  knob.style.transform = isOn ? 'translateX(0)' : 'translateX(20px)';
+  tog.style.background  = isOn ? 'var(--surface2)' : 'rgba(200,241,53,.25)';
+}
+function applyDietCustom() {
+  const bSel = document.querySelector('#budgetOpts .selected');
+  const cSel = document.querySelector('#cuisineOpts .selected');
+  const dSel = document.querySelector('#dietTypeOpts .selected');
+  const chips = document.querySelector('#s-mydiet .diet-chips-row');
+  if (chips) {
+    chips.innerHTML = `
+      <span style="background:rgba(200,241,53,.1);color:var(--lime);border:1px solid rgba(200,241,53,.2);border-radius:100px;padding:4px 11px;font-size:10px;font-weight:600">${cSel ? cSel.textContent.trim().split('\n')[0] : '🇮🇳 Indian'}</span>
+      <span style="background:rgba(78,158,255,.1);color:var(--blue);border:1px solid rgba(78,158,255,.2);border-radius:100px;padding:4px 11px;font-size:10px;font-weight:600">💰 ${bSel ? bSel.textContent.trim().split('\n')[0] : '₹150–250'}</span>
+      <span style="background:rgba(255,79,139,.1);color:var(--pink);border:1px solid rgba(255,79,139,.2);border-radius:100px;padding:4px 11px;font-size:10px;font-weight:600">🎯 ${dSel ? dSel.textContent.trim() : 'High Protein'}</span>`;
+  }
+  showScreen('s-mydiet');
+}
+
+
 
 </script>
 </body>
